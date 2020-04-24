@@ -1,6 +1,7 @@
 {
     "item.sillystuff.animal_grower": "Ani-Gro",
     "itemGroup.sillystuff": "Silly Stuff",
+    "block.sillystuff.better_scaffold" : "Better Scaffold",
     "tooltip.sillystuff.animal_grower1": "Makes Animals Grow Instantly",
     "tooltip.sillystuff.animal_grower2": "Also Works On Creepers to some extent"
 }

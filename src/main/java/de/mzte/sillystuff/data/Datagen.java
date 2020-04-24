@@ -1,6 +1,7 @@
 package de.mzte.sillystuff.data;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
@@ -12,9 +13,11 @@ public class Datagen {
         DataGenerator gen = e.getGenerator();
         if(e.includeClient()) {
             gen.addProvider(new ItemModels(gen, e.getExistingFileHelper()));
+            gen.addProvider(new BlockStates(gen, e.getExistingFileHelper()));
         }
         if(e.includeServer()) {
             gen.addProvider(new Recipes(gen));
+            gen.addProvider(new LootTables(gen));
         }
     }
 }

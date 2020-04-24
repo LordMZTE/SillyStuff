@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    " # ",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "sillystuff:better_scaffold",
+    "count": 16
+  }
+}

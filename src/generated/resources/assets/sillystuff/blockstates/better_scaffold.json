@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "sillystuff:block/better_scaffold"
+      },
+      {
+        "model": "sillystuff:block/better_scaffold",
+        "y": 90
+      },
+      {
+        "model": "sillystuff:block/better_scaffold",
+        "y": 180
+      },
+      {
+        "model": "sillystuff:block/better_scaffold",
+        "y": 270
+      },
+      {
+        "model": "sillystuff:block/better_scaffold",
+        "x": 180
+      },
+      {
+        "model": "sillystuff:block/better_scaffold",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "sillystuff:block/better_scaffold",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "sillystuff:block/better_scaffold",
+        "x": 180,
+        "y": 270
+      }
+    ]
+  }
+}

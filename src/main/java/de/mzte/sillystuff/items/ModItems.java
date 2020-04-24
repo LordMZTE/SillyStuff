@@ -1,13 +1,20 @@
 package de.mzte.sillystuff.items;
 
 import net.minecraft.item.Item;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
-import static de.mzte.sillystuff.SillyStuff.ITEMS;
 import static de.mzte.sillystuff.SillyStuff.ITEM_GROUP;
+import static de.mzte.sillystuff.SillyStuff.MODID;
 
 public class ModItems {
+    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, MODID);
+    public static void register(IEventBus modEventBus) {
+        ITEMS.register(modEventBus);
 
-    public static void register() {
         ITEMS.register("animal_grower", () -> new AnimalGrower(new Item.Properties().group(ITEM_GROUP)));
+
     }
+
 }
