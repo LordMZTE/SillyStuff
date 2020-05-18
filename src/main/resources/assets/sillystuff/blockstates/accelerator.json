@@ -1,0 +1,16 @@
+{
+    "variants": {
+        "facing=up,powered=false": { "model": "sillystuff:block/accelerator", "x": 270 },
+        "facing=down,powered=false": { "model": "sillystuff:block/accelerator", "x": 90 },
+        "facing=north,powered=false": { "model": "sillystuff:block/accelerator" },
+        "facing=south,powered=false": { "model": "sillystuff:block/accelerator", "y": 180 },
+        "facing=west,powered=false": { "model": "sillystuff:block/accelerator", "y": 270 },
+        "facing=east,powered=false": { "model": "sillystuff:block/accelerator", "y": 90 },
+        "facing=up,powered=true": { "model": "sillystuff:block/accelerator_powered", "x": 270 },
+        "facing=down,powered=true": { "model": "sillystuff:block/accelerator_powered", "x": 90 },
+        "facing=north,powered=true": { "model": "sillystuff:block/accelerator_powered" },
+        "facing=south,powered=true": { "model": "sillystuff:block/accelerator_powered", "y": 180 },
+        "facing=west,powered=true": { "model": "sillystuff:block/accelerator_powered", "y": 270 },
+        "facing=east,powered=true": { "model": "sillystuff:block/accelerator_powered", "y": 90 }
+    }
+}

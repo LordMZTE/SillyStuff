@@ -1,17 +1,11 @@
 package de.mzte.sillystuff.data;
 
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.data.*;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.awt.geom.RectangularShape;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.function.Consumer;
 
 import static de.mzte.sillystuff.SillyStuff.MODID;
@@ -55,5 +49,16 @@ public class Recipes extends RecipeProvider {
                 .setGroup(MODID + ":animal_grower")
                 .addCriterion("poisoned_potato", hasItem(Items.POISONOUS_POTATO))
                 .build(consumer,  new ResourceLocation(MODID, "animal_grower_poisonous_potato"));
+
+        ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "accelerator")))
+                .key('D', Tags.Items.STORAGE_BLOCKS_DIAMOND)
+                .key('S', Tags.Items.STONE)
+                .key('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
+                .key('Q', Tags.Items.STORAGE_BLOCKS_QUARTZ)
+                .patternLine("SSS")
+                .patternLine("QRD")
+                .patternLine("SSS")
+                .addCriterion("beacon", hasItem(Items.BEACON))
+                .build(consumer);
     }
 }

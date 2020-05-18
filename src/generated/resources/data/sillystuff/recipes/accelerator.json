@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "QRD",
+    "SSS"
+  ],
+  "key": {
+    "D": {
+      "tag": "forge:storage_blocks/diamond"
+    },
+    "S": {
+      "tag": "forge:stone"
+    },
+    "R": {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    "Q": {
+      "tag": "forge:storage_blocks/quartz"
+    }
+  },
+  "result": {
+    "item": "sillystuff:accelerator"
+  }
+}

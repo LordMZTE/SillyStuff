@@ -47,10 +47,4 @@ public class AnimalGrower extends Item {
         }
         return false;
     }
-
-    @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new TranslationTextComponent("tooltip.sillystuff.animal_grower1").setStyle(new Style().setColor(TextFormatting.GREEN).setItalic(true)));
-        tooltip.add(new TranslationTextComponent("tooltip.sillystuff.animal_grower2").setStyle(new Style().setColor(TextFormatting.GREEN).setItalic(true)));
-    }
 }

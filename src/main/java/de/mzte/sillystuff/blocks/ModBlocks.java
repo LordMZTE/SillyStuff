@@ -5,6 +5,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -25,6 +26,12 @@ public class ModBlocks {
             .harvestLevel(0)
             .hardnessAndResistance(0)
             .lightValue(15)));
+
+        registerBlockWithBasicItem("accelerator", new Accelerator(Block.Properties.create(Material.ROCK)
+            .harvestLevel(1)
+            .sound(SoundType.STONE)
+            .hardnessAndResistance(5)
+            .harvestTool(ToolType.PICKAXE)));
     }
 
 

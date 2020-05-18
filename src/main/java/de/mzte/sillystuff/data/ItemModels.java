@@ -2,6 +2,7 @@ package de.mzte.sillystuff.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -28,6 +29,8 @@ public class ItemModels extends ItemModelProvider {
                 .cube("#all")
                 .end();
 
+        getBuilder("accelerator")
+                .parent(new ModelFile.UncheckedModelFile(new ResourceLocation(MODID, "block/accelerator")));
     }
 
     @Override
