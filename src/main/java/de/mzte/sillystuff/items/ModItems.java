@@ -1,6 +1,7 @@
 package de.mzte.sillystuff.items;
 
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -14,7 +15,8 @@ public class ModItems {
         ITEMS.register(modEventBus);
 
         ITEMS.register("animal_grower", () -> new AnimalGrower(new Item.Properties().group(ITEM_GROUP)));
-
+        ITEMS.register("better_scaffold", () -> new BetterScaffoldItem(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID, "better_scaffold")), new Item.Properties()
+                .group(ITEM_GROUP)));
     }
 
 }

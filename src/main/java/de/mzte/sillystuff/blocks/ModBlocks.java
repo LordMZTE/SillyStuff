@@ -20,7 +20,7 @@ public class ModBlocks {
     public static void register(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
 
-        registerBlockWithBasicItem("better_scaffold", new BetterScaffold(Block.Properties.create(Material.BAMBOO)
+        registerBlock("better_scaffold", new BetterScaffold(Block.Properties.create(Material.BAMBOO)
             .notSolid()
             .sound(SoundType.SCAFFOLDING)
             .harvestLevel(0)

@@ -22,42 +22,43 @@ public class AcceleratorTile extends TileEntity implements ITickableTileEntity {
 	@Override
 	public void tick() {
 		if(!world.isRemote) {
-			int range = Config.ACCELERATOR_BEACON_RANGE.get();
-			for(TileEntity te : this.world.loadedTileEntityList) {
-				BlockPos pos = te.getPos();
-				if(te instanceof BeaconTileEntity) {
-					BeaconTileEntity beacon = (BeaconTileEntity) te;
-					if(Math.abs(pos.getX() - this.pos.getX()) <= range &&
-							Math.abs(pos.getY() - this.pos.getY()) <= range &&
-							Math.abs(pos.getZ() - this.pos.getZ()) <= range &&
-							beacon.primaryEffect == Effects.SPEED &&
-							beacon.levels > 0 && ! beacon.beamSegments.isEmpty()) {
-						if(beacon.primaryEffect == Effects.SPEED && beacon.secondaryEffect == Effects.SPEED) {
-							speedLevel = 2;
-							break;
-						} else if(beacon.primaryEffect == Effects.SPEED) {
-							speedLevel = 1;
-							break;
-						} else {
-							speedLevel = 0;
+			TileEntity toTick = world.getTileEntity(pos.offset(world.getBlockState(pos).get(BlockStateProperties.FACING)));
+			if(toTick != null) {
+				int range = Config.ACCELERATOR_BEACON_RANGE.get();
+				for (TileEntity te : this.world.loadedTileEntityList) {
+					BlockPos pos = te.getPos();
+					if (te instanceof BeaconTileEntity) {
+						BeaconTileEntity beacon = (BeaconTileEntity) te;
+						if (Math.abs(pos.getX() - this.pos.getX()) <= range &&
+								Math.abs(pos.getY() - this.pos.getY()) <= range &&
+								Math.abs(pos.getZ() - this.pos.getZ()) <= range &&
+								beacon.primaryEffect == Effects.SPEED &&
+								beacon.levels > 0 && !beacon.beamSegments.isEmpty()) {
+							if (beacon.primaryEffect == Effects.SPEED && beacon.secondaryEffect == Effects.SPEED) {
+								speedLevel = 2;
+								break;
+							} else if (beacon.primaryEffect == Effects.SPEED) {
+								speedLevel = 1;
+								break;
+							} else {
+								speedLevel = 0;
+							}
 						}
+					} else {
+						speedLevel = 0;
 					}
-				} else {
-					speedLevel = 0;
 				}
-			}
 
-			world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(BlockStateProperties.POWERED, speedLevel > 0));
-			if(speedLevel > 0) {
-				BlockPos tickAT = pos.offset(world.getBlockState(pos).get(BlockStateProperties.FACING));
-				TileEntity te;
-				if((te = world.getTileEntity(tickAT)) != null) {
-					if((te instanceof ITickableTileEntity) && ! (te instanceof AcceleratorTile)) {
-						for(int i = 0; i < Config.ACCELERATOR_ACCELERATION.get(); i++) {
-							((ITickableTileEntity) te).tick();
+				world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(BlockStateProperties.POWERED, speedLevel > 0));
+				if (speedLevel > 0) {
+					if ((toTick instanceof ITickableTileEntity) && !(toTick instanceof AcceleratorTile)) {
+						for (int i = 0; i < Config.ACCELERATOR_ACCELERATION.get(); i++) {
+							((ITickableTileEntity) toTick).tick();
 						}
 					}
 				}
+			}else {
+				world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(BlockStateProperties.POWERED, false));
 			}
 		}
 	}
