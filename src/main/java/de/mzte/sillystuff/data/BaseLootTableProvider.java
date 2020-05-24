@@ -82,6 +82,6 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
 
     @Override
     public String getName() {
-        return "mztegenerator LootTables";
+        return "SillyStuff: LootTables";
     }
 }

@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -50,5 +51,10 @@ public class BetterScaffoldItem extends BlockItem {
                 return context;
             }
         return null;
+    }
+
+    @Override
+    public int getBurnTime(ItemStack itemStack) {
+        return 32;
     }
 }

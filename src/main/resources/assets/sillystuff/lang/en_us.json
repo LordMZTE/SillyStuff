@@ -1,6 +1,7 @@
 {
-    "item.sillystuff.animal_grower": "Ani-Gro",
     "itemGroup.sillystuff": "Silly Stuff",
+    "item.sillystuff.animal_grower": "Ani-Gro",
+    "item.sillystuff.boiled_sweet_berries": "Boiled Sweet Berries",
     "block.sillystuff.better_scaffold" : "Better Scaffold",
     "block.sillystuff.accelerator": "Accelerator",
     "jei.description.animal_grower": "Makes Animals Grow Instantly\nAlso Works On Creepers to some extent",
