@@ -43,25 +43,12 @@ public class BetterScaffold extends Block {
     @Override
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
         if(state.get(BREAKS)) {
-            if(worldIn.getBlockState(pos.up()).getBlock() == this) {
-                worldIn.setBlockState(pos.up(), worldIn.getBlockState(pos.up()).with(BREAKS, true));
-                worldIn.getPendingBlockTicks().scheduleTick(pos.up(), this, 4);
-            }if(worldIn.getBlockState(pos.down()).getBlock() == this) {
-                worldIn.setBlockState(pos.down(), worldIn.getBlockState(pos.down()).with(BREAKS, true));
-                worldIn.getPendingBlockTicks().scheduleTick(pos.down(), this, 4);
-            }if(worldIn.getBlockState(pos.north()).getBlock() == this) {
-                worldIn.setBlockState(pos.north(), worldIn.getBlockState(pos.north()).with(BREAKS, true));
-                worldIn.getPendingBlockTicks().scheduleTick(pos.north(), this, 4);
-            }if(worldIn.getBlockState(pos.east()).getBlock() == this) {
-                worldIn.setBlockState(pos.east(), worldIn.getBlockState(pos.east()).with(BREAKS, true));
-                worldIn.getPendingBlockTicks().scheduleTick(pos.east(), this, 4);
-            }if(worldIn.getBlockState(pos.west()).getBlock() == this) {
-                worldIn.setBlockState(pos.west(), worldIn.getBlockState(pos.west()).with(BREAKS, true));
-                worldIn.getPendingBlockTicks().scheduleTick(pos.west(), this, 4);
-            }if(worldIn.getBlockState(pos.south()).getBlock() == this) {
-                worldIn.setBlockState(pos.south(), worldIn.getBlockState(pos.south()).with(BREAKS, true));
-                worldIn.getPendingBlockTicks().scheduleTick(pos.south(), this, 4);
-            }
+            BlockPos.getAllInBox(pos.add(1, 1, 1), pos.add(-1, -1, -1))
+                    .filter(p -> worldIn.getBlockState(p).getBlock() instanceof BetterScaffold)
+                    .forEach(p -> {
+                        worldIn.setBlockState(p, worldIn.getBlockState(p).with(BREAKS, true));
+                        worldIn.getPendingBlockTicks().scheduleTick(p, worldIn.getBlockState(p).getBlock(), 4);
+                    });
             worldIn.destroyBlock(pos, true);
         }
     }

@@ -37,13 +37,14 @@ public class SillyStuff {
             @Override
             @OnlyIn(Dist.CLIENT)
             public ItemStack createIcon() {
-                return new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "animal_grower")));
+                return new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "recall_pearl")));
             }
         };
 
     }
 
     private void clientSetup(final FMLClientSetupEvent e) {
-        RenderTypeLookup.setRenderLayer(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID,  "better_scaffold")), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID,  "better_scaffold")), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID,  "illuminated_better_scaffold")), RenderType.getCutout());
     }
 }

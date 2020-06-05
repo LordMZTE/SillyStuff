@@ -16,6 +16,8 @@ public class LootTables extends BaseLootTableProvider {
     protected void addTables() {
         Block betterScaffold = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID, "better_scaffold"));
         lootTables.put(betterScaffold, createSelfDropTable(betterScaffold));
+        Block illuminatedBetterScaffold = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID, "illuminated_better_scaffold"));
+        lootTables.put(illuminatedBetterScaffold, createSelfDropTable(illuminatedBetterScaffold));
         Block accelerator = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID, "accelerator"));
         lootTables.put(accelerator, createSelfDropTable(accelerator));
     }

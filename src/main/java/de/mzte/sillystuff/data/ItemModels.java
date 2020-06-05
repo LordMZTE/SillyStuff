@@ -19,8 +19,10 @@ public class ItemModels extends ItemModelProvider {
     protected void registerModels() {
         buildSimpleItem("animal_grower");
         buildSimpleItem("boiled_sweet_berries");
+        buildSimpleItem("recall_pearl");
 
         buildSimpleBlock("better_scaffold");
+        buildSimpleBlock("illuminated_better_scaffold");
         buildSimpleBlock("accelerator");
     }
 

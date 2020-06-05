@@ -18,7 +18,12 @@ public class BlockStates extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        simpleBlock(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID, "better_scaffold")), model -> ObjectArrays.concat(
+        generateBasicBlock("better_scaffold");
+        generateBasicBlock("illuminated_better_scaffold");
+    }
+
+    private void generateBasicBlock(String id) {
+        simpleBlock(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID, id)), model -> ObjectArrays.concat(
                 ConfiguredModel.allYRotations(model, 0, false),
                 ConfiguredModel.allYRotations(model, 180, false),
                 ConfiguredModel.class));

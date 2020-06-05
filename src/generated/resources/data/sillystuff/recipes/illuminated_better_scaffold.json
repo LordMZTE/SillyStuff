@@ -3,16 +3,19 @@
   "group": "sillystuff:better_scaffold",
   "pattern": [
     "# #",
-    " # ",
+    " G ",
     "# #"
   ],
   "key": {
     "#": {
       "item": "minecraft:stick"
+    },
+    "G": {
+      "tag": "forge:dusts/glowstone"
     }
   },
   "result": {
-    "item": "sillystuff:better_scaffold",
+    "item": "sillystuff:illuminated_better_scaffold",
     "count": 16
   }
 }

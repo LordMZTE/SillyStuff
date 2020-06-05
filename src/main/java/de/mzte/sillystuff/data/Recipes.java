@@ -34,6 +34,17 @@ public class Recipes extends RecipeProvider {
                 .patternLine(" # ")
                 .patternLine("# #")
                 .addCriterion("stick", hasItem(Items.STICK))
+                .setGroup(MODID + ":better_scaffold")
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "illuminated_better_scaffold")), 16)
+                .key('#', Items.STICK)
+                .key('G', Tags.Items.DUSTS_GLOWSTONE)
+                .patternLine("# #")
+                .patternLine(" G ")
+                .patternLine("# #")
+                .addCriterion("glowstone", hasItem(Tags.Items.DUSTS_GLOWSTONE))
+                .setGroup(MODID + ":better_scaffold")
                 .build(consumer);
 
         ShapelessRecipeBuilder.shapelessRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "animal_grower")), 2)
@@ -45,6 +56,12 @@ public class Recipes extends RecipeProvider {
                 .setGroup(MODID + ":animal_grower")
                 .addCriterion("seeds", hasItem(Items.WHEAT_SEEDS))
                 .build(consumer, new ResourceLocation(MODID, "animal_grower_potato"));
+
+        ShapelessRecipeBuilder.shapelessRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "recall_pearl")))
+                .addIngredient(Tags.Items.ENDER_PEARLS)
+                .addIngredient(Items.CHORUS_FRUIT)
+                .addCriterion("pearl", hasItem(Tags.Items.ENDER_PEARLS))
+                .build(consumer);
 
         ShapelessRecipeBuilder.shapelessRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "animal_grower")), 4)
                 .addIngredient(Tags.Items.CROPS_CARROT)

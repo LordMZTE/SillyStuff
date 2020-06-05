@@ -24,6 +24,12 @@ public class ModBlocks {
             .notSolid()
             .sound(SoundType.SCAFFOLDING)
             .harvestLevel(0)
+            .hardnessAndResistance(0)));
+
+        registerBlock("illuminated_better_scaffold", new BetterScaffold(Block.Properties.create(Material.BAMBOO)
+            .notSolid()
+            .sound(SoundType.SCAFFOLDING)
+            .harvestLevel(0)
             .hardnessAndResistance(0)
             .lightValue(15)));
 

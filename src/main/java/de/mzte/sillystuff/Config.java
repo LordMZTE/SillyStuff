@@ -13,6 +13,8 @@ public class Config {
 
 	public static ForgeConfigSpec.IntValue ACCELERATOR_BEACON_RANGE;
 	public static ForgeConfigSpec.IntValue ACCELERATOR_ACCELERATION;
+	public static ForgeConfigSpec.BooleanValue CONSUME_RECALL_PEARL;
+	public static ForgeConfigSpec.BooleanValue CHANGE_RECALL_PEARL_LOCATION;
 
 	static {
 		COMMON_BUILDER.comment("SillyStuff Settings").push(CATEGORY_SILLYSTUFF);
@@ -21,6 +23,10 @@ public class Config {
 				.defineInRange("acceleratorBeaconRange", 10, 1, Integer.MAX_VALUE);
 		ACCELERATOR_ACCELERATION = COMMON_BUILDER.comment("The Number of bonus ticks the accelerator is gonna give to its connected tile per level of speed supplied by the beacon")
 				.defineInRange("acceleratorAcceleration", 10, 1, 256);
+		CONSUME_RECALL_PEARL = COMMON_BUILDER.comment("Whether or not the Recall Pearl should be consumed on use")
+				.define("consumeRecallPearl", true);
+		CHANGE_RECALL_PEARL_LOCATION = COMMON_BUILDER.comment("Whether or not the Recall Pearl's Location Can be set Mutiple Times")
+                .define("changeRecallPearlLocation", false);
 
 		COMMON_BUILDER.pop();
 		COMMON_CONFIG = COMMON_BUILDER.build();

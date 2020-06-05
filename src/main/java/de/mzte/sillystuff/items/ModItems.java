@@ -15,14 +15,20 @@ public class ModItems {
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);
 
-        ITEMS.register("animal_grower", () -> new AnimalGrower(new Item.Properties().group(ITEM_GROUP)));
+        ITEMS.register("animal_grower", () -> new AnimalGrower(new Item.Properties()
+                .group(ITEM_GROUP)));
         ITEMS.register("better_scaffold", () -> new BetterScaffoldItem(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID, "better_scaffold")), new Item.Properties()
+                .group(ITEM_GROUP)));
+        ITEMS.register("illuminated_better_scaffold", () -> new BetterScaffoldItem(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID, "illuminated_better_scaffold")), new Item.Properties()
                 .group(ITEM_GROUP)));
         ITEMS.register("boiled_sweet_berries", () -> new Item((new Item.Properties())
                 .group(ITEM_GROUP)
                 .food(new Food.Builder()
                         .saturation(0.4F)
                         .hunger(5).build())));
+        ITEMS.register("recall_pearl", () -> new RecallPearl(new Item.Properties()
+                .maxStackSize(1)
+                .group(ITEM_GROUP)));
     }
 
 }
