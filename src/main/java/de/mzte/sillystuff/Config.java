@@ -12,6 +12,7 @@ public class Config {
 	public static ForgeConfigSpec COMMON_CONFIG;
 
 	public static ForgeConfigSpec.IntValue ACCELERATOR_BEACON_RANGE;
+	public static ForgeConfigSpec.IntValue ACCELERATOR_MAX_SPEED;
 	public static ForgeConfigSpec.IntValue ACCELERATOR_ACCELERATION;
 	public static ForgeConfigSpec.BooleanValue CONSUME_RECALL_PEARL;
 	public static ForgeConfigSpec.BooleanValue CHANGE_RECALL_PEARL_LOCATION;
@@ -21,6 +22,8 @@ public class Config {
 
 		ACCELERATOR_BEACON_RANGE = COMMON_BUILDER.comment("The Range in which a beacon must be for the accelerator to work")
 				.defineInRange("acceleratorBeaconRange", 10, 1, Integer.MAX_VALUE);
+		ACCELERATOR_MAX_SPEED = COMMON_BUILDER.comment("The Maximum Speed Level an Accelerator Can have")
+				.defineInRange("acceleratorMaxSpeed", 10, 1, Integer.MAX_VALUE);
 		ACCELERATOR_ACCELERATION = COMMON_BUILDER.comment("The Number of bonus ticks the accelerator is gonna give to its connected tile per level of speed supplied by the beacon")
 				.defineInRange("acceleratorAcceleration", 10, 1, 256);
 		CONSUME_RECALL_PEARL = COMMON_BUILDER.comment("Whether or not the Recall Pearl should be consumed on use")

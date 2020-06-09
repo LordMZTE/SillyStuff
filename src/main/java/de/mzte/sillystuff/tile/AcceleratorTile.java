@@ -1,65 +1,67 @@
 package de.mzte.sillystuff.tile;
 
 import de.mzte.sillystuff.Config;
+import de.mzte.sillystuff.util.CompareHelper;
 import net.minecraft.potion.Effects;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.BeaconTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import static de.mzte.sillystuff.SillyStuff.MODID;
 
 public class AcceleratorTile extends TileEntity implements ITickableTileEntity {
-	public boolean hasBeacon;
-	public int speedLevel = 0;
-	public AcceleratorTile() {
-		super(ForgeRegistries.TILE_ENTITIES.getValue(new ResourceLocation(MODID, "accelerator")));
-	}
+    public int speedLevel = 0;
 
-	@Override
-	public void tick() {
-		if(!world.isRemote) {
-			TileEntity toTick = world.getTileEntity(pos.offset(world.getBlockState(pos).get(BlockStateProperties.FACING)));
-			if(toTick != null) {
-				int range = Config.ACCELERATOR_BEACON_RANGE.get();
-				for (TileEntity te : this.world.loadedTileEntityList) {
-					BlockPos pos = te.getPos();
-					if (te instanceof BeaconTileEntity) {
-						BeaconTileEntity beacon = (BeaconTileEntity) te;
-						if (Math.abs(pos.getX() - this.pos.getX()) <= range &&
-								Math.abs(pos.getY() - this.pos.getY()) <= range &&
-								Math.abs(pos.getZ() - this.pos.getZ()) <= range &&
-								beacon.primaryEffect == Effects.SPEED &&
-								beacon.levels > 0 && !beacon.beamSegments.isEmpty()) {
-							if (beacon.primaryEffect == Effects.SPEED && beacon.secondaryEffect == Effects.SPEED) {
-								speedLevel = 2;
-								break;
-							} else if (beacon.primaryEffect == Effects.SPEED) {
-								speedLevel = 1;
-								break;
-							} else {
-								speedLevel = 0;
-							}
-						}
-					} else {
-						speedLevel = 0;
-					}
-				}
+    public AcceleratorTile() {
+        super(ForgeRegistries.TILE_ENTITIES.getValue(new ResourceLocation(MODID, "accelerator")));
+    }
 
-				world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(BlockStateProperties.POWERED, speedLevel > 0));
-				if (speedLevel > 0) {
-					if ((toTick instanceof ITickableTileEntity) && !(toTick instanceof AcceleratorTile)) {
-						for (int i = 0; i < Config.ACCELERATOR_ACCELERATION.get(); i++) {
-							((ITickableTileEntity) toTick).tick();
-						}
-					}
-				}
-			}else {
-				world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(BlockStateProperties.POWERED, false));
-			}
-		}
-	}
+    @Override
+    public void tick() {
+        if(!world.isRemote) {
+            TileEntity toTick = world.getTileEntity(pos.offset(world.getBlockState(pos).get(BlockStateProperties.FACING)));
+            if(!world.isBlockPowered(this.pos) && toTick != null) {
+                speedLevel = Math.min(this.world.loadedTileEntityList.stream()
+                        .filter(t -> t instanceof BeaconTileEntity)
+                        .map(t -> (BeaconTileEntity)t)
+                        .filter(this::isBeaconValid)
+                        .mapToInt(this::getSpeedLevel)
+                        .sum(), Config.ACCELERATOR_MAX_SPEED.get());
+
+                if(speedLevel > 0 && (toTick instanceof ITickableTileEntity) && !CompareHelper.objectExtends(toTick, this)) {
+                    setActiveState(true);
+                    for(int i = 0; i < Config.ACCELERATOR_ACCELERATION.get() * speedLevel; i++)
+                        ((ITickableTileEntity)toTick).tick();
+                }else
+                    setActiveState(false);
+            }else
+                setActiveState(false);
+        }
+    }
+
+    private boolean isBeaconValid(BeaconTileEntity beacon) {
+        int range = Config.ACCELERATOR_BEACON_RANGE.get();
+        return Math.abs(pos.getX() - this.pos.getX()) <= range &&
+                Math.abs(pos.getY() - this.pos.getY()) <= range &&
+                Math.abs(pos.getZ() - this.pos.getZ()) <= range &&
+                beacon.primaryEffect == Effects.SPEED &&
+                beacon.levels > 0 && !beacon.beamSegments.isEmpty();
+    }
+
+    private void setActiveState(boolean state) {
+        world.setBlockState(this.pos, this.world.getBlockState(this.pos)
+                .with(BlockStateProperties.POWERED, state));
+    }
+
+    private int getSpeedLevel(BeaconTileEntity beacon) {
+        if(beacon.secondaryEffect == Effects.SPEED && beacon.primaryEffect == Effects.SPEED)
+            return speedLevel = 2;
+        else if(beacon.primaryEffect == Effects.SPEED)
+            return speedLevel = 1;
+        else
+            return speedLevel = 0;
+    }
 }
