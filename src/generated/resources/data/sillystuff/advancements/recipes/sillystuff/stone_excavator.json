@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "sillystuff:better_scaffold"
+      "sillystuff:stone_excavator"
     ]
   },
   "criteria": {
-    "stick": {
+    "has_item": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "tag": "forge:rods/wooden"
+            "tag": "forge:cobblestone"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "sillystuff:better_scaffold"
+        "recipe": "sillystuff:stone_excavator"
       }
     }
   },
   "requirements": [
     [
-      "stick",
+      "has_item",
       "has_the_recipe"
     ]
   ]

@@ -1,14 +1,30 @@
 {
     "itemGroup.sillystuff": "Silly Stuff",
+
     "item.sillystuff.animal_grower": "Ani-Gro",
     "item.sillystuff.recall_pearl": "Recall Pearl",
     "item.sillystuff.boiled_sweet_berries": "Boiled Sweet Berries",
+
+    "item.sillystuff.wooden_hammer": "Wooden Hammer",
+    "item.sillystuff.golden_hammer": "Golden Hammer",
+    "item.sillystuff.stone_hammer": "Stone Hammer",
+    "item.sillystuff.iron_hammer": "Iron Hammer",
+    "item.sillystuff.diamond_hammer": "Diamond Hammer",
+
+    "item.sillystuff.wooden_excavator": "Wooden Excavator",
+    "item.sillystuff.golden_excavator": "Golden Excavator",
+    "item.sillystuff.stone_excavator": "Stone Excavator",
+    "item.sillystuff.iron_excavator": "Iron Excavator",
+    "item.sillystuff.diamond_excavator": "Diamond Excavator",
+
     "block.sillystuff.better_scaffold" : "Better Scaffold",
     "block.sillystuff.illuminated_better_scaffold" : "Illuminated Better Scaffold",
     "block.sillystuff.accelerator": "Accelerator",
+
     "jei.sillystuff.description.recall_pearl" : "Shift-Click to save your current position, Right-Click to go back there",
     "jei.sillystuff.description.animal_grower": "Makes Animals Grow Instantly\nAlso Works On Creepers to some extent",
     "jei.sillystuff.description.better_scaffold": "This Scaffold Is ideal for building!\nYou can place it in a line by crouching while placing it!\nThe whole structure breaks if you crouch while breaking it",
     "jei.sillystuff.description.accelerator": "This will accelerate tile entities in front of it\nbut in order to work it must be within the range of a beacon with the speed effect\nbonus speed if the beacon is speed 2!\nYes you can use Multiple Beacons",
+
     "chat.sillystuff.recall_pearl.nolocation": "You Must set a position First!"
 }

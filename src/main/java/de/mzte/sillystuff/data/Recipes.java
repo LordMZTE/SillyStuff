@@ -1,9 +1,14 @@
 package de.mzte.sillystuff.data;
 
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.data.*;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.CookingRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -24,21 +29,30 @@ public class Recipes extends RecipeProvider {
 
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+        bigToolRecipes(consumer, ItemTags.LOGS, ItemTags.PLANKS, "wooden", ItemTags.PLANKS);
+        bigToolRecipes(consumer, Tags.Items.STORAGE_BLOCKS_GOLD, Tags.Items.INGOTS_GOLD, "golden", Tags.Items.INGOTS_GOLD);
+        bigToolRecipes(consumer, Tags.Items.STONE, Tags.Items.COBBLESTONE, "stone", Tags.Items.COBBLESTONE);
+        bigToolRecipes(consumer, Tags.Items.STORAGE_BLOCKS_IRON, Tags.Items.INGOTS_IRON, "iron", Tags.Items.INGOTS_IRON);
+        bigToolRecipes(consumer, Tags.Items.STORAGE_BLOCKS_DIAMOND, Tags.Items.GEMS_DIAMOND, "diamond", Tags.Items.GEMS_DIAMOND);
+
+        //region Food Items
         foodRecipes(600, "campfire", CookingRecipeSerializer.CAMPFIRE_COOKING, consumer);
         foodRecipes(100, "smoking", CookingRecipeSerializer.SMOKING, consumer);
         foodRecipes(200, "smelting", CookingRecipeSerializer.SMELTING, consumer);
+        //endregion
 
+        //region Other Items
         ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "better_scaffold")), 16)
-                .key('#', Items.STICK)
+                .key('#', Tags.Items.RODS_WOODEN)
                 .patternLine("# #")
                 .patternLine(" # ")
                 .patternLine("# #")
-                .addCriterion("stick", hasItem(Items.STICK))
+                .addCriterion("stick", hasItem(Tags.Items.RODS_WOODEN))
                 .setGroup(MODID + ":better_scaffold")
                 .build(consumer);
 
         ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "illuminated_better_scaffold")), 16)
-                .key('#', Items.STICK)
+                .key('#', Tags.Items.RODS_WOODEN)
                 .key('G', Tags.Items.DUSTS_GLOWSTONE)
                 .patternLine("# #")
                 .patternLine(" G ")
@@ -71,7 +85,7 @@ public class Recipes extends RecipeProvider {
                 .addIngredient(Items.MELON_SLICE)
                 .setGroup(MODID + ":animal_grower")
                 .addCriterion("poisoned_potato", hasItem(Items.POISONOUS_POTATO))
-                .build(consumer,  new ResourceLocation(MODID, "animal_grower_poisonous_potato"));
+                .build(consumer, new ResourceLocation(MODID, "animal_grower_poisonous_potato"));
 
         ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "accelerator")))
                 .key('D', Tags.Items.STORAGE_BLOCKS_DIAMOND)
@@ -83,7 +97,9 @@ public class Recipes extends RecipeProvider {
                 .patternLine("SSS")
                 .addCriterion("beacon", hasItem(Items.BEACON))
                 .build(consumer);
+        //endregion
     }
+
     private void foodRecipes(int time, String methodName, CookingRecipeSerializer<?> serializer, Consumer<IFinishedRecipe> consumer) {
         CookingRecipeBuilder.cookingRecipe(
                 Ingredient.fromItems(Items.SWEET_BERRIES),
@@ -93,5 +109,46 @@ public class Recipes extends RecipeProvider {
                 serializer)
                 .addCriterion("has_berries", hasItem(Items.SWEET_BERRIES))
                 .build(consumer, "boiled_sweet_berries_" + methodName);
+    }
+
+    private void bigToolRecipes(Consumer<IFinishedRecipe> consumer, Ingredient block, Ingredient item, String itemName, ItemPredicate unlockItem) {
+        //HAMMER
+        ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, itemName + "_hammer")))
+                .key('B', block)
+                .key('I', item)
+                .key('S', Items.STICK)
+                .patternLine("BIB")
+                .patternLine(" S ")
+                .patternLine(" S ")
+                .addCriterion("has_item", hasItem(unlockItem))
+                .build(consumer);
+        //EXCAVATOR
+        ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, itemName + "_excavator")))
+                .key('B', block)
+                .key('I', item)
+                .key('S', Items.STICK)
+                .patternLine("IBI")
+                .patternLine(" S ")
+                .patternLine(" S ")
+                .addCriterion("has_item", hasItem(unlockItem))
+                .build(consumer);
+    }
+
+    private void bigToolRecipes(Consumer<IFinishedRecipe> consumer, IItemProvider block, IItemProvider item, String itemName, IItemProvider unlockItem) {
+        bigToolRecipes(consumer,
+                Ingredient.fromItems(block),
+                Ingredient.fromItems(item),
+                itemName,
+                ItemPredicate.Builder.create()
+                        .item(unlockItem).build());
+    }
+
+    private void bigToolRecipes(Consumer<IFinishedRecipe> consumer, Tag<Item> block, Tag<Item> item, String itemName, Tag<Item> unlockItem) {
+        bigToolRecipes(consumer,
+                Ingredient.fromTag(block),
+                Ingredient.fromTag(item),
+                itemName,
+                ItemPredicate.Builder.create()
+                        .tag(unlockItem).build());
     }
 }

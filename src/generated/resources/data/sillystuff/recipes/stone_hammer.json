@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BIB",
+    " S ",
+    " S "
+  ],
+  "key": {
+    "B": {
+      "tag": "forge:stone"
+    },
+    "I": {
+      "tag": "forge:cobblestone"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "sillystuff:stone_hammer"
+  }
+}

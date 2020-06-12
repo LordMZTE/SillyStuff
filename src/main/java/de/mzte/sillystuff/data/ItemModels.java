@@ -17,6 +17,15 @@ public class ItemModels extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        //region Big Tools
+        buildBigTool("wooden");
+        buildBigTool("golden");
+        buildBigTool("stone");
+        buildBigTool("iron");
+        buildBigTool("diamond");
+        //endregion
+
+        //region Other Items
         buildSimpleItem("animal_grower");
         buildSimpleItem("boiled_sweet_berries");
         buildSimpleItem("recall_pearl");
@@ -24,6 +33,12 @@ public class ItemModels extends ItemModelProvider {
         buildSimpleBlock("better_scaffold");
         buildSimpleBlock("illuminated_better_scaffold");
         buildSimpleBlock("accelerator");
+        //endregion
+    }
+
+    private void buildBigTool(String name) {
+        buildSimpleItem(name + "_hammer");
+        buildSimpleItem(name + "_excavator");
     }
 
     @Override
