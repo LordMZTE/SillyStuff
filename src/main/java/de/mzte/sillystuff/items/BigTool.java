@@ -83,7 +83,6 @@ public class BigTool extends ToolItem {
                     .offset(face.rotateY(), radius);
         }
 
-        System.out.println("bottomLeft: " + bottomLeft + " topRight: " + topRight);
         return BlockPos.getAllInBox(bottomLeft, topRight);
     }
 }
