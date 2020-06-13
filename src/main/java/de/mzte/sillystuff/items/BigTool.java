@@ -42,29 +42,28 @@ public class BigTool extends ToolItem {
                 BlockRayTraceResult blockRay = (BlockRayTraceResult)ray;
                 Direction facing = blockRay.getFace();
                 getArea(pos, facing)
+                        .filter(b -> worldIn instanceof ServerWorld &&
+                                worldIn.getTileEntity(b) == null &&
+                                entityLiving instanceof ServerPlayerEntity &&
+                                !worldIn.isAirBlock(b))
                         .forEach(b -> {
-                            if(worldIn instanceof ServerWorld &&
-                                    worldIn.getTileEntity(b) == null &&
-                                    entityLiving instanceof ServerPlayerEntity &&
-                                    !worldIn.isAirBlock(b)) {
-                                BlockState tempState = worldIn.getBlockState(b);
-                                Block block = tempState.getBlock();
-                                if(!this.getToolTypes(stack).contains(tempState.getHarvestTool()) || player.isCrouching() || block.getBlockHardness(tempState, worldIn, b) < 0)
-                                    return;
-                                //Call Destroy Function For Custom behaviour blocks may have
-                                block.onPlayerDestroy(worldIn, b, tempState);
-                                //Generate Drops
-                                block.harvestBlock(worldIn, player, b, tempState, null, stack);
-                                //Generate XP
-                                block.dropXpOnBlockBreak(worldIn, b, tempState.getBlock().getExpDrop(
-                                        tempState,
-                                        worldIn,
-                                        b,
-                                        EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack),
-                                        EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack)));
-                                //Remove Block
-                                worldIn.destroyBlock(b, false);
-                            }
+                            BlockState tempState = worldIn.getBlockState(b);
+                            Block block = tempState.getBlock();
+                            if(!this.canHarvestBlock(tempState) || player.isCrouching() || block.getBlockHardness(tempState, worldIn, b) < 0)
+                                return;
+                            //Call Destroy Function For Custom behaviour blocks may have
+                            block.onPlayerDestroy(worldIn, b, tempState);
+                            //Generate Drops
+                            block.harvestBlock(worldIn, player, b, tempState, null, stack);
+                            //Generate XP
+                            block.dropXpOnBlockBreak(worldIn, b, tempState.getBlock().getExpDrop(
+                                    tempState,
+                                    worldIn,
+                                    b,
+                                    EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack),
+                                    EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack)));
+                            //Remove Block
+                            worldIn.destroyBlock(b, false);
                         });
             }
         }
@@ -76,12 +75,17 @@ public class BigTool extends ToolItem {
 
         if(face == Direction.DOWN || face == Direction.UP) {
             bottomLeft = block
+                    //Move South
                     .south(this.radius)
+                    //Move West
                     .west(this.radius)
+                    //Move Down By Depth
                     .offset(face, depth);
 
             topRight = block
+                    //Move North
                     .north(this.radius)
+                    //Move East
                     .east(this.radius);
         }else {
             //Move Down By Radius
