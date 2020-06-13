@@ -3,6 +3,8 @@ package de.mzte.sillystuff.items;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -17,7 +19,9 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.ToolType;
 
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class BigTool extends ToolItem {
@@ -47,8 +51,18 @@ public class BigTool extends ToolItem {
                                 Block block = tempState.getBlock();
                                 if(!this.getToolTypes(stack).contains(tempState.getHarvestTool()) || player.isCrouching() || block.getBlockHardness(tempState, worldIn, b) < 0)
                                     return;
+                                //Call Destroy Function For Custom behaviour blocks may have
                                 block.onPlayerDestroy(worldIn, b, tempState);
+                                //Generate Drops
                                 block.harvestBlock(worldIn, player, b, tempState, null, stack);
+                                //Generate XP
+                                block.dropXpOnBlockBreak(worldIn, b, tempState.getBlock().getExpDrop(
+                                        tempState,
+                                        worldIn,
+                                        b,
+                                        EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack),
+                                        EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack)));
+                                //Remove Block
                                 worldIn.destroyBlock(b, false);
                             }
                         });
@@ -84,5 +98,23 @@ public class BigTool extends ToolItem {
         }
 
         return BlockPos.getAllInBox(bottomLeft, topRight);
+    }
+
+    private int getHarvestLevel() {
+        return this.getToolTypes(null).parallelStream()
+                .mapToInt(t -> this.getHarvestLevel(null, t, null, null))
+                .max()
+                .orElse(-1);
+    }
+
+    @Override
+    public boolean canHarvestBlock(BlockState blockIn) {
+        Set<ToolType> toolTypes = this.getToolTypes(null);
+        return toolTypes.contains(blockIn.getHarvestTool()) && this.getHarvestLevel() >= blockIn.getHarvestLevel();
+    }
+
+    @Override
+    public float getDestroySpeed(ItemStack stack, BlockState state) {
+        return this.getToolTypes(null).contains(state.getHarvestTool()) && this.getHarvestLevel() >= state.getHarvestLevel() ? this.efficiency : super.getDestroySpeed(stack, state);
     }
 }
