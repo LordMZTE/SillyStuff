@@ -16,10 +16,11 @@ public class CompareHelper {
         Class aClass, bClass;
         aClass = a.getClass();
         bClass = b.getClass();
-        return  bClass == aClass || bClass.isAssignableFrom(aClass);
+        return bClass == aClass || bClass.isAssignableFrom(aClass);
     }
 
     /**
+     * True if a is in range of b
      *
      * @param a the first position
      * @param b the second position
