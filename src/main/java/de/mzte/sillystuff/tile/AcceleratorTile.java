@@ -43,10 +43,10 @@ public class AcceleratorTile extends TileEntity implements ITickableTileEntity {
     }
 
     private boolean isBeaconValid(BeaconTileEntity beacon) {
-        int range = Config.ACCELERATOR_BEACON_RANGE.get();
-        return Math.abs(pos.getX() - this.pos.getX()) <= range &&
-                Math.abs(pos.getY() - this.pos.getY()) <= range &&
-                Math.abs(pos.getZ() - this.pos.getZ()) <= range &&
+        return CompareHelper.isInCubeRange(
+                beacon.getPos(),
+                this.pos,
+                Config.ACCELERATOR_BEACON_RANGE.get()) &&
                 beacon.primaryEffect == Effects.SPEED &&
                 beacon.levels > 0 && !beacon.beamSegments.isEmpty();
     }
