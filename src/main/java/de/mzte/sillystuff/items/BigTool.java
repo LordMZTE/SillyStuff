@@ -23,6 +23,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -30,6 +31,14 @@ import java.util.stream.Stream;
 public class BigTool extends ToolItem {
     public final int radius, depth;
     public final List<Material> additionalMaterials;
+    public static final HashMap<ToolType, List<Material>> materialsForToolTypes = new HashMap<>();
+
+    static {
+        //This Jank was mojang's idea, not mine!
+        materialsForToolTypes.put(ToolType.AXE, Arrays.asList(Material.WOOD, Material.PLANTS, Material.TALL_PLANTS, Material.BAMBOO));
+        materialsForToolTypes.put(ToolType.PICKAXE, Arrays.asList(Material.IRON, Material.ANVIL, Material.ROCK));
+        materialsForToolTypes.put(ToolType.SHOVEL, Arrays.asList(Material.SNOW, Material.SNOW_BLOCK));
+    }
 
     public BigTool(float attackDamageIn, float attackSpeedIn, IItemTier tier, Properties builder, int radius, int depth, Material... additionalMaterials) {
         super(attackDamageIn, attackSpeedIn, tier, ImmutableSet.of(), builder);
@@ -38,12 +47,13 @@ public class BigTool extends ToolItem {
         this.additionalMaterials = Arrays.asList(additionalMaterials);
     }
 
+
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
         if(entityLiving instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)entityLiving;
             RayTraceResult ray = Item.rayTrace(worldIn, player, RayTraceContext.FluidMode.ANY);
-            if(ray.getType() == RayTraceResult.Type.BLOCK) {
+            if(this.canHarvestBlock(state) && ray.getType() == RayTraceResult.Type.BLOCK) {
                 BlockRayTraceResult blockRay = (BlockRayTraceResult)ray;
                 Direction facing = blockRay.getFace();
                 getArea(pos, facing)
@@ -116,18 +126,27 @@ public class BigTool extends ToolItem {
                 .orElse(-1);
     }
 
+    private boolean isMaterialValid(Material material) {
+        return this.additionalMaterials.contains(material) ||
+                materialsForToolTypes.entrySet().stream()
+                .filter(e -> this.getToolTypes(null).contains(e.getKey()))
+                .anyMatch(e -> e.getValue().contains(material));
+    }
+
     @Override
     public boolean canHarvestBlock(BlockState blockIn) {
         Set<ToolType> toolTypes = this.getToolTypes(null);
         return toolTypes.contains(blockIn.getHarvestTool()) ||
-                this.additionalMaterials.contains(blockIn.getMaterial()) &&
+                this.isMaterialValid(blockIn.getMaterial()) &&
                         this.getHarvestLevel() >= blockIn.getHarvestLevel();
     }
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
         return this.getToolTypes(null).contains(state.getHarvestTool()) ||
-                this.additionalMaterials.contains(state.getMaterial()) &&
-                        this.getHarvestLevel() >= state.getHarvestLevel() ? super.getDestroySpeed(stack, state) : this.efficiency;
+                this.isMaterialValid(state.getMaterial()) &&
+                        this.getHarvestLevel() >= state.getHarvestLevel() ?
+                this.efficiency :
+                super.getDestroySpeed(stack, state);
     }
 }
