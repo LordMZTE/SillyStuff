@@ -29,11 +29,13 @@ public class Recipes extends RecipeProvider {
 
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+        //region Big Tools
         bigToolRecipes(consumer, ItemTags.LOGS, ItemTags.PLANKS, "wooden", ItemTags.PLANKS);
         bigToolRecipes(consumer, Tags.Items.STORAGE_BLOCKS_GOLD, Tags.Items.INGOTS_GOLD, "golden", Tags.Items.INGOTS_GOLD);
         bigToolRecipes(consumer, Tags.Items.STONE, Tags.Items.COBBLESTONE, "stone", Tags.Items.COBBLESTONE);
         bigToolRecipes(consumer, Tags.Items.STORAGE_BLOCKS_IRON, Tags.Items.INGOTS_IRON, "iron", Tags.Items.INGOTS_IRON);
         bigToolRecipes(consumer, Tags.Items.STORAGE_BLOCKS_DIAMOND, Tags.Items.GEMS_DIAMOND, "diamond", Tags.Items.GEMS_DIAMOND);
+        //endregion
 
         //region Food Items
         foodRecipes(600, "campfire", CookingRecipeSerializer.CAMPFIRE_COOKING, consumer);
@@ -116,7 +118,7 @@ public class Recipes extends RecipeProvider {
         ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, itemName + "_hammer")))
                 .key('B', block)
                 .key('I', item)
-                .key('S', Items.STICK)
+                .key('S', Tags.Items.RODS_WOODEN)
                 .patternLine("BIB")
                 .patternLine(" S ")
                 .patternLine(" S ")
@@ -126,21 +128,22 @@ public class Recipes extends RecipeProvider {
         ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, itemName + "_excavator")))
                 .key('B', block)
                 .key('I', item)
-                .key('S', Items.STICK)
+                .key('S', Tags.Items.RODS_WOODEN)
                 .patternLine("IBI")
                 .patternLine(" S ")
                 .patternLine(" S ")
                 .addCriterion("has_item", hasItem(unlockItem))
                 .build(consumer);
-    }
-
-    private void bigToolRecipes(Consumer<IFinishedRecipe> consumer, IItemProvider block, IItemProvider item, String itemName, IItemProvider unlockItem) {
-        bigToolRecipes(consumer,
-                Ingredient.fromItems(block),
-                Ingredient.fromItems(item),
-                itemName,
-                ItemPredicate.Builder.create()
-                        .item(unlockItem).build());
+        //GREAT AXE
+        ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, itemName + "_great_axe")))
+                .key('B', block)
+                .key('I', item)
+                .key('S', Tags.Items.RODS_WOODEN)
+                .patternLine("BI")
+                .patternLine("IS")
+                .patternLine(" S")
+                .addCriterion("has_item", hasItem(unlockItem))
+                .build(consumer);
     }
 
     private void bigToolRecipes(Consumer<IFinishedRecipe> consumer, Tag<Item> block, Tag<Item> item, String itemName, Tag<Item> unlockItem) {

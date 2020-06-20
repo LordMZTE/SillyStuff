@@ -3,6 +3,7 @@ package de.mzte.sillystuff.items;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
@@ -21,16 +22,20 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
 public class BigTool extends ToolItem {
-    private final int radius, depth;
+    public final int radius, depth;
+    public final List<Material> additionalMaterials;
 
-    public BigTool(float attackDamageIn, float attackSpeedIn, IItemTier tier, Properties builder, int radius, int depth) {
+    public BigTool(float attackDamageIn, float attackSpeedIn, IItemTier tier, Properties builder, int radius, int depth, Material... additionalMaterials) {
         super(attackDamageIn, attackSpeedIn, tier, ImmutableSet.of(), builder);
         this.radius = radius;
         this.depth = depth;
+        this.additionalMaterials = Arrays.asList(additionalMaterials);
     }
 
     @Override
@@ -80,7 +85,7 @@ public class BigTool extends ToolItem {
                     //Move West
                     .west(this.radius)
                     //Move Down By Depth
-                    .offset(face, depth);
+                    .offset(face.getOpposite(), this.depth);
 
             topRight = block
                     //Move North
@@ -91,14 +96,14 @@ public class BigTool extends ToolItem {
             //Move Down By Radius
             bottomLeft = block.down(this.radius)
                     //Move In By Depth
-                    .offset(face, this.depth)
+                    .offset(face.getOpposite(), this.depth)
                     //Rotate CCW and move by radius
                     .offset(face.rotateYCCW(), this.radius);
 
             //Move Up by radius
             topRight = block.up(this.radius)
                     //Rotate Clockwise and expand by radius
-                    .offset(face.rotateY(), radius);
+                    .offset(face.rotateY(), this.radius);
         }
 
         return BlockPos.getAllInBox(bottomLeft, topRight);
@@ -114,11 +119,15 @@ public class BigTool extends ToolItem {
     @Override
     public boolean canHarvestBlock(BlockState blockIn) {
         Set<ToolType> toolTypes = this.getToolTypes(null);
-        return toolTypes.contains(blockIn.getHarvestTool()) && this.getHarvestLevel() >= blockIn.getHarvestLevel();
+        return toolTypes.contains(blockIn.getHarvestTool()) ||
+                this.additionalMaterials.contains(blockIn.getMaterial()) &&
+                        this.getHarvestLevel() >= blockIn.getHarvestLevel();
     }
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        return this.getToolTypes(null).contains(state.getHarvestTool()) && this.getHarvestLevel() >= state.getHarvestLevel() ? this.efficiency : super.getDestroySpeed(stack, state);
+        return this.getToolTypes(null).contains(state.getHarvestTool()) ||
+                this.additionalMaterials.contains(state.getMaterial()) &&
+                        this.getHarvestLevel() >= state.getHarvestLevel() ? super.getDestroySpeed(stack, state) : this.efficiency;
     }
 }

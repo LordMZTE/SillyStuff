@@ -17,6 +17,12 @@
     "item.sillystuff.iron_excavator": "Iron Excavator",
     "item.sillystuff.diamond_excavator": "Diamond Excavator",
 
+    "item.sillystuff.wooden_great_axe": "Wooden Great Axe",
+    "item.sillystuff.golden_great_axe": "Golden Great Axe",
+    "item.sillystuff.stone_great_axe": "Stone Great Axe",
+    "item.sillystuff.iron_great_axe": "Iron Great Axe",
+    "item.sillystuff.diamond_great_axe": "Diamond Great Axe",
+
     "block.sillystuff.better_scaffold" : "Better Scaffold",
     "block.sillystuff.illuminated_better_scaffold" : "Illuminated Better Scaffold",
     "block.sillystuff.accelerator": "Accelerator",

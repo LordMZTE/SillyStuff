@@ -39,6 +39,7 @@ public class ItemModels extends ItemModelProvider {
     private void buildBigTool(String name) {
         buildSimpleItem(name + "_hammer");
         buildSimpleItem(name + "_excavator");
+        buildSimpleItem(name + "_great_axe");
     }
 
     @Override

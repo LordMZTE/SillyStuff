@@ -1,5 +1,6 @@
 package de.mzte.sillystuff.items;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.item.Food;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
@@ -19,11 +20,11 @@ public class ModItems {
         ITEMS.register(modEventBus);
 
         //region Big Tools
-        registerBigTools("wooden", 1, -2.8F, ItemTier.WOOD, 1, 0);
-        registerBigTools("golden", 1, -2.8F, ItemTier.GOLD, 1, 0);
-        registerBigTools("stone", 1, -2.8F, ItemTier.STONE, 1, 0);
-        registerBigTools("iron", 1, -2.8F, ItemTier.IRON, 1, 0);
-        registerBigTools("diamond", 1, -2.8F, ItemTier.DIAMOND, 1, 0);
+        registerBigTools("wooden", 1, -2.8F, ItemTier.WOOD);
+        registerBigTools("golden", 1, -2.8F, ItemTier.GOLD);
+        registerBigTools("stone", 1, -2.8F, ItemTier.STONE);
+        registerBigTools("iron", 1, -2.8F, ItemTier.IRON);
+        registerBigTools("diamond", 1, -2.8F, ItemTier.DIAMOND);
         //endregion
 
         //region Other Items
@@ -47,9 +48,7 @@ public class ModItems {
     private static void registerBigTools(String name,
                                          int damage,
                                          float attackSpeed,
-                                         IItemTier tier,
-                                         int radius,
-                                         int depth) {
+                                         IItemTier tier) {
         int miningLevel = tier.getHarvestLevel();
         //HAMMER
         ITEMS.register(name + "_hammer", () -> new BigTool(damage,
@@ -58,8 +57,8 @@ public class ModItems {
                 new Item.Properties()
                         .group(ITEM_GROUP)
                         .addToolType(ToolType.PICKAXE, miningLevel),
-                radius,
-                depth));
+                1,
+                0));
         //EXCAVATOR
         ITEMS.register(name + "_excavator", () -> new BigTool(damage,
                 attackSpeed,
@@ -67,8 +66,20 @@ public class ModItems {
                 new Item.Properties()
                         .group(ITEM_GROUP)
                         .addToolType(ToolType.SHOVEL, miningLevel),
-                radius,
-                depth));
+                1,
+                0));
+        //GREAT AXE
+        ITEMS.register(name + "_great_axe", () -> new BigTool(damage,
+                attackSpeed,
+                tier,
+                new Item.Properties()
+                        .group(ITEM_GROUP)
+                        .addToolType(ToolType.AXE, miningLevel),
+                1,
+                2,
+                Material.LEAVES,
+                Material.BAMBOO,
+                Material.BAMBOO_SAPLING));
     }
 
 }

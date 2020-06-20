@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "IBI",
-    " S ",
-    " S "
+    "BI",
+    "IS",
+    " S"
   ],
   "key": {
     "B": {
@@ -17,6 +17,6 @@
     }
   },
   "result": {
-    "item": "sillystuff:iron_excavator"
+    "item": "sillystuff:iron_great_axe"
   }
 }

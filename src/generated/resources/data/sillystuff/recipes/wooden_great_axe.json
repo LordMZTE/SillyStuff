@@ -1,22 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "IBI",
-    " S ",
-    " S "
+    "BI",
+    "IS",
+    " S"
   ],
   "key": {
     "B": {
-      "tag": "forge:storage_blocks/iron"
+      "tag": "minecraft:logs"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "minecraft:planks"
     },
     "S": {
       "tag": "forge:rods/wooden"
     }
   },
   "result": {
-    "item": "sillystuff:iron_excavator"
+    "item": "sillystuff:wooden_great_axe"
   }
 }
