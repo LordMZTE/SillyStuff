@@ -4,6 +4,7 @@
     "item.sillystuff.animal_grower": "Ani-Gro",
     "item.sillystuff.recall_pearl": "Rückruf Perle",
     "item.sillystuff.boiled_sweet_berries": "Gekochte Süßbeeren",
+    "item.sillystuff.emerald_on_a_stick": "Smaragdrute",
 
     "item.sillystuff.wooden_hammer": "Holzhammer",
     "item.sillystuff.golden_hammer": "Goldhammer",
@@ -29,8 +30,9 @@
 
     "jei.sillystuff.description.recall_pearl" : "Shift-Clicke um deine momentane position zu speichern, Rechts-Clicke um dorthin zu gehen",
     "jei.sillystuff.description.animal_grower": "Hiermit wachsen tiere sofort.\nFunktioniert bei creepern auch so halbwegs...",
-    "jei.sillystuff.description.better_scaffold": "Dieses Gerüst ist ideal zum bauen!\nDu kannst es ein einer linie setzen wenn du dabei schleichst!\nDie Komplette Struktur geht kaputt wenn du beim abbauen schleichst!",
+    "jei.sillystuff.description.better_scaffold": "Dieses Gerüst ist ideal zum bauen!\nDu kannst es ein einer linie, nach unten oder nach oben setzen wenn du dabei schleichst!\nDie Komplette Struktur geht kaputt wenn du beim abbauen schleichst!",
     "jei.sillystuff.description.accelerator": "Hiermit werden tile-entitäten beschleunigt\naber damit es funktioniert muss in der nähe ein Leuchtfeuer mit Schnelligkeit sein.\nBonus Geschwindigkeit wenn das Leuchtfeuer Schnelligkeit 2 hat!\nJa, du kannst mehrere Leuchtfeuer benutzen.",
+    "jei.sillystuff.description.emerald_on_a_stick": "Dorfbewohner finden diesen Stock sehr attracktiv",
 
     "chat.sillystuff.recall_pearl.nolocation": "Du musst zuerst eine Position Setzen!"
 }

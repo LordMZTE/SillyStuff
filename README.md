@@ -3,11 +3,15 @@
 
 **Suggestions Welcome!**
 ![img](https://i.imgur.com/AhkGmdt.jpg "SillyStuff")
+
+**Catchme_96 made a showcase of the mod**
+
+[![Showcase](https://img.youtube.com/vi/ugWOxxAKzE0/0.jpg)](https://www.youtube.com/watch?v=ugWOxxAKzE0 "Showcase")
 ##  Currently, this mod adds:
 - **Ani-Gro**
     - This item allows you to grow animals instantly
 - **Better Scaffolding**
-    - A cheap block that, when the player is crouching while breaking it will break all connected scaffolds**
+    - A cheap block that, when the player is crouching while breaking it will break all connected scaffolds** it also has some special placing behaviour when sneaking
 - **Illuminated Better Scaffolding**
     - Better Scaffolding but it emits light
 - **Accelerator**

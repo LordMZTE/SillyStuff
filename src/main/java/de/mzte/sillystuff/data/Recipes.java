@@ -1,5 +1,6 @@
 package de.mzte.sillystuff.data;
 
+import de.mzte.sillystuff.util.RegistryHelper;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.data.*;
 import net.minecraft.item.Item;
@@ -8,10 +9,8 @@ import net.minecraft.item.crafting.CookingRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
-import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Consumer;
 
@@ -44,7 +43,7 @@ public class Recipes extends RecipeProvider {
         //endregion
 
         //region Other Items
-        ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "better_scaffold")), 16)
+        ShapedRecipeBuilder.shapedRecipe(RegistryHelper.grabModItem( "better_scaffold"), 8)
                 .key('#', Tags.Items.RODS_WOODEN)
                 .patternLine("# #")
                 .patternLine(" # ")
@@ -53,7 +52,7 @@ public class Recipes extends RecipeProvider {
                 .setGroup(MODID + ":better_scaffold")
                 .build(consumer);
 
-        ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "illuminated_better_scaffold")), 16)
+        ShapedRecipeBuilder.shapedRecipe(RegistryHelper.grabModItem( "illuminated_better_scaffold"), 8)
                 .key('#', Tags.Items.RODS_WOODEN)
                 .key('G', Tags.Items.DUSTS_GLOWSTONE)
                 .patternLine("# #")
@@ -63,7 +62,7 @@ public class Recipes extends RecipeProvider {
                 .setGroup(MODID + ":better_scaffold")
                 .build(consumer);
 
-        ShapelessRecipeBuilder.shapelessRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "animal_grower")), 2)
+        ShapelessRecipeBuilder.shapelessRecipe(RegistryHelper.grabModItem("animal_grower"), 2)
                 .addIngredient(Tags.Items.CROPS_CARROT)
                 .addIngredient(Tags.Items.CROPS_POTATO)
                 .addIngredient(Tags.Items.CROPS_WHEAT)
@@ -73,13 +72,13 @@ public class Recipes extends RecipeProvider {
                 .addCriterion("seeds", hasItem(Items.WHEAT_SEEDS))
                 .build(consumer, new ResourceLocation(MODID, "animal_grower_potato"));
 
-        ShapelessRecipeBuilder.shapelessRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "recall_pearl")))
+        ShapelessRecipeBuilder.shapelessRecipe(RegistryHelper.grabModItem( "recall_pearl"))
                 .addIngredient(Tags.Items.ENDER_PEARLS)
                 .addIngredient(Items.CHORUS_FRUIT)
                 .addCriterion("pearl", hasItem(Tags.Items.ENDER_PEARLS))
                 .build(consumer);
 
-        ShapelessRecipeBuilder.shapelessRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "animal_grower")), 4)
+        ShapelessRecipeBuilder.shapelessRecipe(RegistryHelper.grabModItem("animal_grower"), 4)
                 .addIngredient(Tags.Items.CROPS_CARROT)
                 .addIngredient(Items.POISONOUS_POTATO)
                 .addIngredient(Tags.Items.CROPS_WHEAT)
@@ -89,7 +88,7 @@ public class Recipes extends RecipeProvider {
                 .addCriterion("poisoned_potato", hasItem(Items.POISONOUS_POTATO))
                 .build(consumer, new ResourceLocation(MODID, "animal_grower_poisonous_potato"));
 
-        ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "accelerator")))
+        ShapedRecipeBuilder.shapedRecipe(RegistryHelper.grabModItem("accelerator"))
                 .key('D', Tags.Items.STORAGE_BLOCKS_DIAMOND)
                 .key('S', Tags.Items.STONE)
                 .key('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
@@ -99,23 +98,32 @@ public class Recipes extends RecipeProvider {
                 .patternLine("SSS")
                 .addCriterion("beacon", hasItem(Items.BEACON))
                 .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(RegistryHelper.grabModItem("emerald_on_a_stick"))
+                .key('E', Tags.Items.GEMS_EMERALD)
+                .key('F', Items.FISHING_ROD)
+                .patternLine("EEE")
+                .patternLine("EFE")
+                .patternLine("EEE")
+                .addCriterion("emerald", hasItem(Tags.Items.GEMS_EMERALD))
+                .build(consumer);
         //endregion
     }
 
     private void foodRecipes(int time, String methodName, CookingRecipeSerializer<?> serializer, Consumer<IFinishedRecipe> consumer) {
         CookingRecipeBuilder.cookingRecipe(
                 Ingredient.fromItems(Items.SWEET_BERRIES),
-                ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "boiled_sweet_berries")),
+                RegistryHelper.grabModItem("boiled_sweet_berries"),
                 0.1F,
                 time,
                 serializer)
                 .addCriterion("has_berries", hasItem(Items.SWEET_BERRIES))
-                .build(consumer, "boiled_sweet_berries_" + methodName);
+                .build(consumer, new ResourceLocation(MODID, "boiled_sweet_berries_" + methodName));
     }
 
     private void bigToolRecipes(Consumer<IFinishedRecipe> consumer, Ingredient block, Ingredient item, String itemName, ItemPredicate unlockItem) {
         //HAMMER
-        ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, itemName + "_hammer")))
+        ShapedRecipeBuilder.shapedRecipe(RegistryHelper.grabModItem(itemName + "_hammer"))
                 .key('B', block)
                 .key('I', item)
                 .key('S', Tags.Items.RODS_WOODEN)
@@ -125,7 +133,7 @@ public class Recipes extends RecipeProvider {
                 .addCriterion("has_item", hasItem(unlockItem))
                 .build(consumer);
         //EXCAVATOR
-        ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, itemName + "_excavator")))
+        ShapedRecipeBuilder.shapedRecipe(RegistryHelper.grabModItem(itemName + "_excavator"))
                 .key('B', block)
                 .key('I', item)
                 .key('S', Tags.Items.RODS_WOODEN)
@@ -135,7 +143,7 @@ public class Recipes extends RecipeProvider {
                 .addCriterion("has_item", hasItem(unlockItem))
                 .build(consumer);
         //GREAT AXE
-        ShapedRecipeBuilder.shapedRecipe(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, itemName + "_great_axe")))
+        ShapedRecipeBuilder.shapedRecipe(RegistryHelper.grabModItem(itemName + "_great_axe"))
                 .key('B', block)
                 .key('I', item)
                 .key('S', Tags.Items.RODS_WOODEN)

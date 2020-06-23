@@ -1,5 +1,6 @@
 package de.mzte.sillystuff.data;
 
+import de.mzte.sillystuff.util.IterationHelper;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
@@ -17,29 +18,36 @@ public class ItemModels extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        //region Big Tools
-        buildBigTool("wooden");
-        buildBigTool("golden");
-        buildBigTool("stone");
-        buildBigTool("iron");
-        buildBigTool("diamond");
-        //endregion
+        //Big Tools
+        IterationHelper.runForAll(this::buildBigTool,
+                "wooden",
+                "golden",
+                "stone",
+                "iron",
+                "diamond");
 
-        //region Other Items
-        buildSimpleItem("animal_grower");
-        buildSimpleItem("boiled_sweet_berries");
-        buildSimpleItem("recall_pearl");
+        //Handheld Rods
+        buildParentItem("emerald_on_a_stick", "item/handheld_rod");
 
-        buildSimpleBlock("better_scaffold");
-        buildSimpleBlock("illuminated_better_scaffold");
-        buildSimpleBlock("accelerator");
-        //endregion
+        //Other Items
+        IterationHelper.runForAll(this::buildSimpleItem,
+                "animal_grower",
+                "boiled_sweet_berries",
+                "recall_pearl");
+
+        //Blocks
+        IterationHelper.runForAll(this::buildSimpleBlock,
+                "better_scaffold",
+                "illuminated_better_scaffold",
+                "accelerator");
+
     }
 
     private void buildBigTool(String name) {
-        buildSimpleItem(name + "_hammer");
-        buildSimpleItem(name + "_excavator");
-        buildSimpleItem(name + "_great_axe");
+        IterationHelper.runForAll(this::buildSimpleItem,
+                name + "_hammer",
+                name + "_excavator",
+                name + "_great_axe");
     }
 
     @Override
@@ -47,11 +55,19 @@ public class ItemModels extends ItemModelProvider {
         return "Silly Stuff: Item Models";
     }
 
-    private void buildSimpleItem(String registryName) {
+    private void buildParentItem(String registryName, String parent) {
         getBuilder(registryName)
-                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .parent(new ModelFile.UncheckedModelFile(parent))
                 .texture("layer0", mcLoc("sillystuff:item/" + registryName));
     }
+
+    private void buildSimpleItem(String registryName) {
+        buildParentItem(registryName, "item/generated");
+    }
+
+
+
+
     private void buildSimpleBlock(String registryName) {
         getBuilder(registryName)
                 .parent(new ModelFile.UncheckedModelFile(new ResourceLocation(MODID, "block/" + registryName)));

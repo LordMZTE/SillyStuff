@@ -3,11 +3,11 @@ package de.mzte.sillystuff;
 import de.mzte.sillystuff.blocks.ModBlocks;
 import de.mzte.sillystuff.items.ModItems;
 import de.mzte.sillystuff.tile.ModTiles;
+import de.mzte.sillystuff.util.RegistryHelper;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -16,7 +16,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod(SillyStuff.MODID)
 public class SillyStuff {
@@ -37,14 +36,15 @@ public class SillyStuff {
             @Override
             @OnlyIn(Dist.CLIENT)
             public ItemStack createIcon() {
-                return new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, "recall_pearl")));
+                return new ItemStack(RegistryHelper.grabModItem("recall_pearl"));
             }
         };
 
     }
 
     private void clientSetup(final FMLClientSetupEvent e) {
-        RenderTypeLookup.setRenderLayer(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID,  "better_scaffold")), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID,  "illuminated_better_scaffold")), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(RegistryHelper.grabModBlock("illuminated_better_scaffold"), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(RegistryHelper.grabModBlock("better_scaffold"), RenderType.getCutout());
     }
+
 }

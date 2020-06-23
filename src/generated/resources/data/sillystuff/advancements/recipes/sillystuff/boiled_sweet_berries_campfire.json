@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:boiled_sweet_berries_smoking"
+      "sillystuff:boiled_sweet_berries_campfire"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:boiled_sweet_berries_smoking"
+        "recipe": "sillystuff:boiled_sweet_berries_campfire"
       }
     }
   },

@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:boiled_sweet_berries_smelting"
+      "sillystuff:emerald_on_a_stick"
     ]
   },
   "criteria": {
-    "has_berries": {
+    "emerald": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:sweet_berries"
+            "tag": "forge:gems/emerald"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:boiled_sweet_berries_smelting"
+        "recipe": "sillystuff:emerald_on_a_stick"
       }
     }
   },
   "requirements": [
     [
-      "has_berries",
+      "emerald",
       "has_the_recipe"
     ]
   ]

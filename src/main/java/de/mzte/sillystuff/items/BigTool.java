@@ -9,10 +9,12 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -41,7 +43,37 @@ public class BigTool extends ToolItem {
     }
 
     public BigTool(float attackDamageIn, float attackSpeedIn, IItemTier tier, Properties builder, int radius, int depth, Material... additionalMaterials) {
-        super(attackDamageIn, attackSpeedIn, tier, ImmutableSet.of(), builder);
+        super(attackDamageIn, attackSpeedIn, new IItemTier() {
+            @Override
+            public int getMaxUses() {
+                return tier.getMaxUses() * 4;
+            }
+
+            @Override
+            public float getEfficiency() {
+                return tier.getEfficiency();
+            }
+
+            @Override
+            public float getAttackDamage() {
+                return tier.getAttackDamage();
+            }
+
+            @Override
+            public int getHarvestLevel() {
+                return tier.getHarvestLevel();
+            }
+
+            @Override
+            public int getEnchantability() {
+                return tier.getEnchantability();
+            }
+
+            @Override
+            public Ingredient getRepairMaterial() {
+                return tier.getRepairMaterial();
+            }
+        }, ImmutableSet.of(), builder);
         this.radius = radius;
         this.depth = depth;
         this.additionalMaterials = Arrays.asList(additionalMaterials);
@@ -66,6 +98,9 @@ public class BigTool extends ToolItem {
                             Block block = tempState.getBlock();
                             if(!this.canHarvestBlock(tempState) || player.isCrouching() || block.getBlockHardness(tempState, worldIn, b) < 0)
                                 return;
+
+                            //Damage Item
+                            stack.damageItem(1, entityLiving, this::breakAnimation);
                             //Call Destroy Function For Custom behaviour blocks may have
                             block.onPlayerDestroy(worldIn, b, tempState);
                             //Generate Drops
@@ -80,6 +115,8 @@ public class BigTool extends ToolItem {
                             //Remove Block
                             worldIn.destroyBlock(b, false);
                         });
+                //Restore damage that's been done to the item by the game
+                stack.damageItem(-1, entityLiving, this::breakAnimation);
             }
         }
         return super.onBlockDestroyed(stack, worldIn, state, pos, entityLiving);
@@ -148,5 +185,9 @@ public class BigTool extends ToolItem {
                         this.getHarvestLevel() >= state.getHarvestLevel() ?
                 this.efficiency :
                 super.getDestroySpeed(stack, state);
+    }
+
+    public void breakAnimation(LivingEntity entity) {
+        entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
     }
 }

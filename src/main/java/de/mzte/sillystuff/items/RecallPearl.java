@@ -12,6 +12,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -38,7 +39,7 @@ public class RecallPearl extends Item {
         }else {
             if(isActive(stack)) {
                 if(!worldIn.isRemote) {
-                    teleportToDimension(playerIn, getDim(stack), getPos(stack));
+                    teleportToDimension(playerIn, getDim(stack), new Vec3d(getPos(stack)).add(0.5d, 0, 0.5d));
                     playerIn.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1, 1);
                     if(Config.CONSUME_RECALL_PEARL.get() && !playerIn.abilities.isCreativeMode)
                         stack.shrink(1);
@@ -106,7 +107,7 @@ public class RecallPearl extends Item {
         return isActive(stack);
     }
 
-    private void teleportToDimension(PlayerEntity player, DimensionType dimension, BlockPos pos) {
+    private void teleportToDimension(PlayerEntity player, DimensionType dimension, Vec3d pos) {
         player.changeDimension(dimension, new ITeleporter() {
             @Override
             public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {

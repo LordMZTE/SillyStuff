@@ -39,6 +39,8 @@ public class ModItems {
                 .food(new Food.Builder()
                         .saturation(0.4F)
                         .hunger(5).build())));
+        ITEMS.register("emerald_on_a_stick", () -> new Item((new Item.Properties())
+                .group(ITEM_GROUP)));
         ITEMS.register("recall_pearl", () -> new RecallPearl(new Item.Properties()
                 .maxStackSize(1)
                 .group(ITEM_GROUP)));
