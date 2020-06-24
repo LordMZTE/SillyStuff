@@ -22,3 +22,5 @@
     - Shift click to store your Current position and then click with it to teleport back there
 - **Hammers, Excavators and Great Axes**
     - Like Pickaxes, Shovels and Axes but they break a 3x3 areas
+- **Emerald on a Stick**
+    - Villagers will follow you around if you have this in your hand
