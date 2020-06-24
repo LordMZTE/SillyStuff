@@ -1,5 +1,6 @@
 package de.mzte.sillystuff.events;
 
+import de.mzte.sillystuff.util.IterationHelper;
 import de.mzte.sillystuff.util.RegistryHelper;
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
@@ -14,7 +15,7 @@ public class CommonForgeEvents {
     public static void entityJoin(final EntityJoinWorldEvent e) {
         if(e.getEntity() instanceof VillagerEntity) {
             VillagerEntity villager = (VillagerEntity)e.getEntity();
-            if(!villager.goalSelector.goals.stream().anyMatch(g -> g.getGoal() instanceof TemptGoal))
+            if(!IterationHelper.anyMatch(g -> g.getGoal() instanceof TemptGoal, villager.goalSelector.goals))
                 villager.goalSelector.addGoal(
                         2,
                         new TemptGoal(

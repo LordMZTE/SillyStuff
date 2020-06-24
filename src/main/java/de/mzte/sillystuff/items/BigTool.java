@@ -90,9 +90,10 @@ public class BigTool extends ToolItem {
                 Direction facing = blockRay.getFace();
                 getArea(pos, facing)
                         .filter(b -> worldIn instanceof ServerWorld &&
-                                worldIn.getTileEntity(b) == null &&
                                 entityLiving instanceof ServerPlayerEntity &&
-                                !worldIn.isAirBlock(b))
+                                !worldIn.isAirBlock(b) &&
+                                this.canHarvestBlock(worldIn.getBlockState(b)) &&
+                                worldIn.getTileEntity(b) == null)
                         .forEach(b -> {
                             BlockState tempState = worldIn.getBlockState(b);
                             Block block = tempState.getBlock();
@@ -173,8 +174,8 @@ public class BigTool extends ToolItem {
     @Override
     public boolean canHarvestBlock(BlockState blockIn) {
         Set<ToolType> toolTypes = this.getToolTypes(null);
-        return toolTypes.contains(blockIn.getHarvestTool()) ||
-                this.isMaterialValid(blockIn.getMaterial()) &&
+        return (toolTypes.contains(blockIn.getHarvestTool()) ||
+                this.isMaterialValid(blockIn.getMaterial())) &&
                         this.getHarvestLevel() >= blockIn.getHarvestLevel();
     }
 

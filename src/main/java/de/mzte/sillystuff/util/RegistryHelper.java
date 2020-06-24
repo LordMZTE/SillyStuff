@@ -11,6 +11,7 @@ import static de.mzte.sillystuff.SillyStuff.MODID;
 public class RegistryHelper {
     /**
      * will grab a mod item from the item registry
+     *
      * @param id the registry name of the item
      * @return the item
      */
@@ -20,6 +21,7 @@ public class RegistryHelper {
 
     /**
      * will grab an item from the registry
+     *
      * @param modId the ID of the mod of the item
      * @param id the registry name of the item
      * @return the item
@@ -30,6 +32,7 @@ public class RegistryHelper {
 
     /**
      * will grab a mod block from the registry
+     *
      * @param id the registry name of the block
      * @return the block
      */
@@ -39,6 +42,7 @@ public class RegistryHelper {
 
     /**
      * will grab a block from the registry
+     *
      * @param modId the ID of the mod of the block
      * @param id the registry name of the block
      * @return the block
@@ -49,6 +53,7 @@ public class RegistryHelper {
 
     /**
      * will grab a mod tile entity from the registry
+     *
      * @param id the registry name of the tile entity
      * @return the tile entity
      */
@@ -58,6 +63,7 @@ public class RegistryHelper {
 
     /**
      * will grab a tile entity from the registry
+     *
      * @param modId the ID of the mod of the tile entity
      * @param id the registry name of the tile entity
      * @return the tile entity
