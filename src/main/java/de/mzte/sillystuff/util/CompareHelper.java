@@ -13,7 +13,7 @@ public class CompareHelper {
     public static boolean objectExtends(Object a, Object b) {
         if(a == null || b == null)
             return false;
-        Class aClass, bClass;
+        Class<?> aClass, bClass;
         aClass = a.getClass();
         bClass = b.getClass();
         return bClass == aClass || bClass.isAssignableFrom(aClass);
