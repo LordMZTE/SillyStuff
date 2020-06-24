@@ -40,7 +40,7 @@ public class AcceleratorTile extends TileEntity implements ITickableTileEntity {
                         .sum(), Config.ACCELERATOR_MAX_SPEED.get());
 
                 acceleration = speedLevel * Config.ACCELERATOR_ACCELERATION.get();
-                if(speedLevel > 0 && !CompareHelper.objectExtends(toTick, this)) {
+                if(speedLevel > 0 && !(world.getTileEntity(toTickPos) instanceof AcceleratorTile)) {
                     if(world.getTileEntity(toTickPos) instanceof ITickableTileEntity) {
                         setActiveState(true);
                         for(int i = 0; i < acceleration; i++)

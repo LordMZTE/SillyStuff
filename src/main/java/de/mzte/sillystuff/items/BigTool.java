@@ -88,36 +88,37 @@ public class BigTool extends ToolItem {
             if(this.canHarvestBlock(state) && ray.getType() == RayTraceResult.Type.BLOCK) {
                 BlockRayTraceResult blockRay = (BlockRayTraceResult)ray;
                 Direction facing = blockRay.getFace();
-                getArea(pos, facing)
-                        .filter(b -> worldIn instanceof ServerWorld &&
-                                entityLiving instanceof ServerPlayerEntity &&
-                                !worldIn.isAirBlock(b) &&
-                                this.canHarvestBlock(worldIn.getBlockState(b)) &&
-                                worldIn.getTileEntity(b) == null)
-                        .forEach(b -> {
-                            BlockState tempState = worldIn.getBlockState(b);
-                            Block block = tempState.getBlock();
-                            if(!this.canHarvestBlock(tempState) || player.isCrouching() || block.getBlockHardness(tempState, worldIn, b) < 0)
-                                return;
+                if(!player.isCrouching()) {
+                    getArea(pos, facing)
+                            .filter(b -> worldIn instanceof ServerWorld &&
+                                    entityLiving instanceof ServerPlayerEntity &&
+                                    !worldIn.isAirBlock(b) &&
+                                    this.canHarvestBlock(worldIn.getBlockState(b)) &&
+                                    worldIn.getBlockState(b).getBlockHardness(worldIn, b) > 0 &&
+                                    worldIn.getTileEntity(b) == null)
+                            .forEach(b -> {
+                                BlockState tempState = worldIn.getBlockState(b);
+                                Block block = tempState.getBlock();
 
-                            //Damage Item
-                            stack.damageItem(1, entityLiving, this::breakAnimation);
-                            //Call Destroy Function For Custom behaviour blocks may have
-                            block.onPlayerDestroy(worldIn, b, tempState);
-                            //Generate Drops
-                            block.harvestBlock(worldIn, player, b, tempState, null, stack);
-                            //Generate XP
-                            block.dropXpOnBlockBreak(worldIn, b, tempState.getBlock().getExpDrop(
-                                    tempState,
-                                    worldIn,
-                                    b,
-                                    EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack),
-                                    EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack)));
-                            //Remove Block
-                            worldIn.destroyBlock(b, false);
-                        });
-                //Restore damage that's been done to the item by the game
-                stack.damageItem(-1, entityLiving, this::breakAnimation);
+                                //Damage Item
+                                stack.damageItem(1, entityLiving, this::breakAnimation);
+                                //Call Destroy Function For Custom behaviour blocks may have
+                                block.onPlayerDestroy(worldIn, b, tempState);
+                                //Generate Drops
+                                block.harvestBlock(worldIn, player, b, tempState, null, stack);
+                                //Generate XP
+                                block.dropXpOnBlockBreak(worldIn, b, tempState.getBlock().getExpDrop(
+                                        tempState,
+                                        worldIn,
+                                        b,
+                                        EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack),
+                                        EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack)));
+                                //Remove Block
+                                worldIn.destroyBlock(b, false);
+                            });
+                    //Restore damage that's been done to the item by the game
+                    stack.damageItem(-1, entityLiving, this::breakAnimation);
+                }
             }
         }
         return super.onBlockDestroyed(stack, worldIn, state, pos, entityLiving);
@@ -167,8 +168,8 @@ public class BigTool extends ToolItem {
     private boolean isMaterialValid(Material material) {
         return this.additionalMaterials.contains(material) ||
                 materialsForToolTypes.entrySet().stream()
-                .filter(e -> this.getToolTypes(null).contains(e.getKey()))
-                .anyMatch(e -> e.getValue().contains(material));
+                        .filter(e -> this.getToolTypes(null).contains(e.getKey()))
+                        .anyMatch(e -> e.getValue().contains(material));
     }
 
     @Override
@@ -176,7 +177,7 @@ public class BigTool extends ToolItem {
         Set<ToolType> toolTypes = this.getToolTypes(null);
         return (toolTypes.contains(blockIn.getHarvestTool()) ||
                 this.isMaterialValid(blockIn.getMaterial())) &&
-                        this.getHarvestLevel() >= blockIn.getHarvestLevel();
+                this.getHarvestLevel() >= blockIn.getHarvestLevel();
     }
 
     @Override
