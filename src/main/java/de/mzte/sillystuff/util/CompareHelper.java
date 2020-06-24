@@ -25,7 +25,7 @@ public class CompareHelper {
      * @param a the first position
      * @param b the second position
      * @param range the range the positions must be in
-     * @return if the positions are in range of eachother
+     * @return if the positions are in range of each other
      */
     public static boolean isInCubeRange(BlockPos a, BlockPos b, int range) {
         return Math.abs(a.getX() - b.getX()) <= range &&
