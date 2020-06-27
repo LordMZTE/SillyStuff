@@ -1,3 +1,4 @@
+/*
 package de.mzte.sillystuff.plugins.jei;
 
 import de.mzte.sillystuff.util.IterationHelper;
@@ -43,4 +44,4 @@ public class SillyStuffJEIPlugin implements IModPlugin {
                 "jei.sillystuff.description.better_scaffold"
         );
     }
-}
+}*/
