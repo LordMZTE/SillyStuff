@@ -11,20 +11,24 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.function.Supplier;
+
 import static de.mzte.sillystuff.SillyStuff.ITEM_GROUP;
 import static de.mzte.sillystuff.SillyStuff.MODID;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);
 
         //region Big Tools
-        registerBigTools("wooden", 1, -2.8F, ItemTier.WOOD);
-        registerBigTools("golden", 1, -2.8F, ItemTier.GOLD);
-        registerBigTools("stone", 1, -2.8F, ItemTier.STONE);
-        registerBigTools("iron", 1, -2.8F, ItemTier.IRON);
-        registerBigTools("diamond", 1, -2.8F, ItemTier.DIAMOND);
+        registerBigTools("wooden", 1, -2.8F, ItemTier.WOOD, false);
+        registerBigTools("golden", 1, -2.8F, ItemTier.GOLD, false);
+        registerBigTools("stone", 1, -2.8F, ItemTier.STONE, false);
+        registerBigTools("iron", 1, -2.8F, ItemTier.IRON, false);
+        registerBigTools("diamond", 1, -2.8F, ItemTier.DIAMOND, false);
+        registerBigTools("netherite", 1, -2.8F, ItemTier.NETHERITE, true);
         //endregion
 
         //region Other Items
@@ -50,14 +54,24 @@ public class ModItems {
     private static void registerBigTools(String name,
                                          int damage,
                                          float attackSpeed,
-                                         IItemTier tier) {
+                                         IItemTier tier,
+                                         boolean invulnerableToFire) {
         int miningLevel = tier.getHarvestLevel();
+        Supplier<Item.Properties> props = () -> {
+            Item.Properties properties = new Item.Properties()
+                    .group(ITEM_GROUP);
+
+            if(invulnerableToFire)
+                properties.func_234689_a_();
+
+            return properties;
+        };
+
         //HAMMER
         ITEMS.register(name + "_hammer", () -> new BigTool(damage,
                 attackSpeed,
                 tier,
-                new Item.Properties()
-                        .group(ITEM_GROUP)
+                props.get()
                         .addToolType(ToolType.PICKAXE, miningLevel),
                 1,
                 0));
@@ -65,8 +79,7 @@ public class ModItems {
         ITEMS.register(name + "_excavator", () -> new BigTool(damage,
                 attackSpeed,
                 tier,
-                new Item.Properties()
-                        .group(ITEM_GROUP)
+                props.get()
                         .addToolType(ToolType.SHOVEL, miningLevel),
                 1,
                 0));
@@ -74,8 +87,7 @@ public class ModItems {
         ITEMS.register(name + "_great_axe", () -> new BigTool(damage,
                 attackSpeed,
                 tier,
-                new Item.Properties()
-                        .group(ITEM_GROUP)
+                props.get()
                         .addToolType(ToolType.AXE, miningLevel),
                 1,
                 2,

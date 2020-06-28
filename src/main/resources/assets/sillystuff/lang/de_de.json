@@ -11,24 +11,27 @@
     "item.sillystuff.stone_hammer": "Steinhammer",
     "item.sillystuff.iron_hammer": "Eisenhammer",
     "item.sillystuff.diamond_hammer": "Diamanthammer",
+    "item.sillystuff.netherite_hammer": "Netherithammer",
 
     "item.sillystuff.wooden_excavator": "Holzspaten",
     "item.sillystuff.golden_excavator": "Goldspaten",
     "item.sillystuff.stone_excavator": "Steinspaten",
     "item.sillystuff.iron_excavator": "Eisenspaten",
     "item.sillystuff.diamond_excavator": "Diamantspaten",
-    
+    "item.sillystuff.netherite_excavator": "Netheritspaten",
+
     "item.sillystuff.wooden_great_axe": "Holzgroßaxt",
     "item.sillystuff.golden_great_axe": "Goldgroßaxt",
     "item.sillystuff.stone_great_axe": "Steingroßaxt",
     "item.sillystuff.iron_great_axe": "Eisengroßaxt",
     "item.sillystuff.diamond_great_axe": "Diamantgroßaxt",
+    "item.sillystuff.Netherite_great_axe": "Netheritgroßaxt",
 
-    "block.sillystuff.better_scaffold" : "Besseres Gerüst",
-    "block.sillystuff.illuminated_better_scaffold" : "Beleuchtetes Besseres Gerüst",
+    "block.sillystuff.better_scaffold": "Besseres Gerüst",
+    "block.sillystuff.illuminated_better_scaffold": "Beleuchtetes Besseres Gerüst",
     "block.sillystuff.accelerator": "Beschleuniger",
 
-    "jei.sillystuff.description.recall_pearl" : "Shift-Clicke um deine momentane position zu speichern, Rechts-Clicke um dorthin zu gehen",
+    "jei.sillystuff.description.recall_pearl": "Shift-Clicke um deine momentane position zu speichern, Rechts-Clicke um dorthin zu gehen",
     "jei.sillystuff.description.animal_grower": "Hiermit wachsen tiere sofort.\nFunktioniert bei creepern auch so halbwegs...",
     "jei.sillystuff.description.better_scaffold": "Dieses Gerüst ist ideal zum bauen!\nDu kannst es ein einer linie, nach unten oder nach oben setzen wenn du dabei schleichst!\nDie Komplette Struktur geht kaputt wenn du beim abbauen schleichst!",
     "jei.sillystuff.description.accelerator": "Hiermit werden tile-entitäten beschleunigt\naber damit es funktioniert muss in der nähe ein Leuchtfeuer mit Schnelligkeit sein.\nBonus Geschwindigkeit wenn das Leuchtfeuer Schnelligkeit 2 hat!\nJa, du kannst mehrere Leuchtfeuer benutzen.",

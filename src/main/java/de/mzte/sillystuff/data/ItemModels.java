@@ -24,7 +24,8 @@ public class ItemModels extends ItemModelProvider {
                 "golden",
                 "stone",
                 "iron",
-                "diamond");
+                "diamond",
+                "netherite");
 
         //Handheld Rods
         buildParentItem("emerald_on_a_stick", "item/handheld_rod");
