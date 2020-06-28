@@ -9,7 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import static de.mzte.sillystuff.SillyStuff.MODID;
 
 public class ModTiles {
-	public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = new DeferredRegister<>(ForgeRegistries.TILE_ENTITIES, MODID);
+	public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, MODID);
 
 	public static void register(IEventBus modEventBus) {
 		TILE_ENTITIES.register(modEventBus);

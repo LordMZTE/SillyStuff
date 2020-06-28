@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.server.ServerWorld;
 
@@ -20,24 +21,25 @@ public class AnimalGrower extends Item {
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
         if(target instanceof AnimalEntity && ((AnimalEntity) target).getGrowingAge() < 0) {
-            if (!target.world.isRemote) {
+            if(!target.world.isRemote) {
                 if(!playerIn.abilities.isCreativeMode)
                     playerIn.getHeldItem(hand).shrink(1);
                 ((AnimalEntity) target).setGrowingAge(0);
-                for (int i = 0; i < 10; ++i) {
+                for(int i = 0; i < 10; ++i) {
                     ((ServerWorld) target.getEntityWorld()).spawnParticle(ParticleTypes.HAPPY_VILLAGER, target.getPosXRandom(1.0D), target.getPosYRandom() + 1.0D, target.getPosZRandom(1.0D), 2, rand.nextGaussian() * 0.02D, rand.nextGaussian() * 0.02D, rand.nextGaussian() * 0.02D, 5D);
                 }
             }
-            return true;
-        } else if(target instanceof CreeperEntity && !((CreeperEntity) target).hasIgnited()) {
+            return ActionResultType.CONSUME;
+        }else if(target instanceof CreeperEntity && !((CreeperEntity) target).hasIgnited()) {
             if(!target.world.isRemote) {
                 ((CreeperEntity) target).ignite();
-                playerIn.getHeldItem(hand).shrink(1);
+                if(!playerIn.abilities.isCreativeMode)
+                    playerIn.getHeldItem(hand).shrink(1);
             }
-            return true;
+            return ActionResultType.CONSUME;
         }
-        return false;
+        return ActionResultType.PASS;
     }
 }

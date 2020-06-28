@@ -15,7 +15,7 @@ import static de.mzte.sillystuff.SillyStuff.ITEM_GROUP;
 import static de.mzte.sillystuff.SillyStuff.MODID;
 
 public class ModItems {
-    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, MODID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);
 

@@ -7,8 +7,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.CookingRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 
@@ -154,7 +154,7 @@ public class Recipes extends RecipeProvider {
                 .build(consumer);
     }
 
-    private void bigToolRecipes(Consumer<IFinishedRecipe> consumer, Tag<Item> block, Tag<Item> item, String itemName, Tag<Item> unlockItem) {
+    private void bigToolRecipes(Consumer<IFinishedRecipe> consumer, ITag.INamedTag<Item> block, ITag.INamedTag<Item> item, String itemName, ITag.INamedTag<Item> unlockItem) {
         bigToolRecipes(consumer,
                 Ingredient.fromTag(block),
                 Ingredient.fromTag(item),

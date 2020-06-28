@@ -65,7 +65,7 @@ public class AcceleratorTile extends TileEntity implements ITickableTileEntity {
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void func_230337_a_(BlockState state, CompoundNBT compound) {
         this.growTicks = compound.getInt("growTicks");
     }
 

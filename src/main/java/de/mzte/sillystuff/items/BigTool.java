@@ -37,7 +37,7 @@ public class BigTool extends ToolItem {
 
     static {
         //This Jank was mojang's idea, not mine!
-        materialsForToolTypes.put(ToolType.AXE, Arrays.asList(Material.WOOD, Material.PLANTS, Material.TALL_PLANTS, Material.BAMBOO));
+        materialsForToolTypes.put(ToolType.AXE, Arrays.asList(Material.WOOD, Material.field_237214_y_, Material.PLANTS, Material.TALL_PLANTS, Material.BAMBOO, Material.GOURD));
         materialsForToolTypes.put(ToolType.PICKAXE, Arrays.asList(Material.IRON, Material.ANVIL, Material.ROCK));
         materialsForToolTypes.put(ToolType.SHOVEL, Arrays.asList(Material.SNOW, Material.SNOW_BLOCK));
     }

@@ -10,6 +10,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SChatPacket;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.TextFormatting;
@@ -42,8 +43,8 @@ public class BetterScaffoldItem extends BlockItem {
             direction = Direction.UP;
 
         int i = 0;
-        BlockPos.Mutable blockClicked = (new BlockPos.Mutable(blockpos)).move(context.getFace().getOpposite());
-        BlockPos.Mutable blockpos$mutable = (new BlockPos.Mutable(blockpos)).move(context.getFace().getOpposite()).move(direction);
+        BlockPos.Mutable blockClicked = blockpos.func_239590_i_().move(context.getFace().getOpposite());
+        BlockPos.Mutable blockpos$mutable = blockpos.func_239590_i_().move(context.getFace().getOpposite()).move(direction);
         if(CompareHelper.objectExtends(world.getBlockState(blockClicked).getBlock(), block) && context.getPlayer().isCrouching()) {
             while(i < 100) {
                 blockstate = world.getBlockState(blockpos$mutable);
@@ -54,7 +55,7 @@ public class BetterScaffoldItem extends BlockItem {
                     break;
                 }
                 if( blockpos$mutable.getY() > world.getHeight() && player instanceof ServerPlayerEntity) {
-                    SChatPacket schatpacket = new SChatPacket((new TranslationTextComponent("build.tooHigh", world.getHeight())).applyTextStyle(TextFormatting.RED), ChatType.GAME_INFO);
+                    SChatPacket schatpacket = new SChatPacket((new TranslationTextComponent("build.tooHigh", world.getHeight())).func_240701_a_(TextFormatting.RED), ChatType.GAME_INFO, Util.field_240973_b_);
                     ((ServerPlayerEntity)player).connection.sendPacket(schatpacket);
                     break;
                 }

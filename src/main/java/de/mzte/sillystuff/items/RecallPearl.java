@@ -1,26 +1,26 @@
 package de.mzte.sillystuff.items;
 
 import de.mzte.sillystuff.Config;
-import net.minecraft.entity.Entity;
+import de.mzte.sillystuff.util.PositionHelper;
+import de.mzte.sillystuff.util.SerializationHelper;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
+import net.minecraft.network.play.server.SPlaySoundEventPacket;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.util.ITeleporter;
-
-import java.util.function.Function;
 
 public class RecallPearl extends Item {
 
@@ -31,23 +31,22 @@ public class RecallPearl extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
-        CompoundNBT nbt = stack.getTag();
         if(playerIn.isCrouching() && (Config.CHANGE_RECALL_PEARL_LOCATION.get() || !isActive(stack))) {
-            setDim(stack, playerIn.dimension);
-            setPos(stack, playerIn.getPosition());
-            playerIn.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1, 1);
+            if(!worldIn.isRemote()) {
+                setDim(stack, (ServerWorld) worldIn);
+                setPos(stack, PositionHelper.blockPosFromVec3d(playerIn.getPositionVec()));
+            }else
+                playerIn.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1, 1);
         }else {
             if(isActive(stack)) {
                 if(!worldIn.isRemote) {
-                    teleportToDimension(playerIn, getDim(stack), new Vec3d(getPos(stack)).add(0.5d, 0, 0.5d));
-                    playerIn.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1, 1);
+                    teleportToDimension((ServerPlayerEntity) playerIn, getDim(stack, worldIn.getServer()), PositionHelper.vec3dFromBlockPos(getPos(stack)).add(0.5d, 0, 0.5d));
                     if(Config.CONSUME_RECALL_PEARL.get() && !playerIn.abilities.isCreativeMode)
                         stack.shrink(1);
-
                 }
             }else {
                 if(worldIn.isRemote)
-                    playerIn.sendMessage((new TranslationTextComponent("chat.sillystuff.recall_pearl.nolocation").applyTextStyle(TextFormatting.RED)));
+                    playerIn.sendMessage((new TranslationTextComponent("chat.sillystuff.recall_pearl.nolocation").func_240701_a_(TextFormatting.RED)), Util.field_240973_b_);
 
                 return ActionResult.resultFail(stack);
             }
@@ -77,27 +76,29 @@ public class RecallPearl extends Item {
         i.setTag(nbt);
     }
 
-    private DimensionType getDim(ItemStack i) {
+    private ServerWorld getDim(ItemStack i, MinecraftServer server) {
         if(!i.hasTag())
             return null;
 
-        return DimensionType.byName(new ResourceLocation(i.getTag().getString("dim")));
+        CompoundNBT tags = i.getTag();
+
+        if(!tags.contains("dim"))
+            return null;
+
+        return SerializationHelper.deserializeDimension(tags.getString("dim"), server);
     }
 
-    private void setDim(ItemStack i, DimensionType d) {
+    private void setDim(ItemStack i, ServerWorld w) {
         CompoundNBT nbt = i.getTag();
         if(!i.hasTag())
             nbt = new CompoundNBT();
 
         nbt.remove("dim");
-        nbt.putString("dim", d.getRegistryName().toString());
+        nbt.putString("dim", SerializationHelper.serializeDimension(w));
         i.setTag(nbt);
     }
 
     private boolean isActive(ItemStack i) {
-        if(!i.hasTag())
-            return false;
-
         CompoundNBT nbt = i.getTag();
         return nbt != null && nbt.contains("pos") && nbt.contains("dim");
     }
@@ -107,14 +108,15 @@ public class RecallPearl extends Item {
         return isActive(stack);
     }
 
-    private void teleportToDimension(PlayerEntity player, DimensionType dimension, Vec3d pos) {
-        player.changeDimension(dimension, new ITeleporter() {
-            @Override
-            public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
-                entity = repositionEntity.apply(false);
-                entity.setPositionAndUpdate(pos.getX(), pos.getY(), pos.getZ());
-                return entity;
-            }
-        });
+    private void teleportToDimension(ServerPlayerEntity player, ServerWorld world, Vector3d pos) {
+        player.teleport(
+                world,
+                pos.getX(),
+                pos.getY(),
+                pos.getZ(),
+                player.getYaw(1f),
+                player.getPitch(1f)
+        );
+        player.connection.sendPacket(new SPlaySoundEventPacket(1032, BlockPos.ZERO, 0, false));
     }
 }

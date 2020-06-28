@@ -5,7 +5,6 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -15,31 +14,31 @@ import static de.mzte.sillystuff.SillyStuff.MODID;
 import static de.mzte.sillystuff.items.ModItems.ITEMS;
 
 public class ModBlocks {
-    private static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, MODID);
+    private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 
     public static void register(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
 
         registerBlock("better_scaffold", new BetterScaffold(Block.Properties.create(Material.BAMBOO)
-            .notSolid()
-            .sound(SoundType.SCAFFOLDING)
-            .harvestLevel(0)
-            .hardnessAndResistance(0)));
+                .notSolid()
+                .sound(SoundType.SCAFFOLDING)
+                .harvestLevel(0)
+                .zeroHardnessAndResistance()
+                //No Mob Spawns
+                .func_235827_a_((a, b, c, d) -> false)));
 
         registerBlock("illuminated_better_scaffold", new BetterScaffold(Block.Properties.create(Material.BAMBOO)
-            .notSolid()
-            .sound(SoundType.SCAFFOLDING)
-            .harvestLevel(0)
-            .hardnessAndResistance(0)
-            .lightValue(15)));
+                .notSolid()
+                .sound(SoundType.SCAFFOLDING)
+                .harvestLevel(0)
+                .zeroHardnessAndResistance()
+                //No Mob Spawns
+                .func_235827_a_((a, b, c, d) -> false)
+                //Light value
+                .func_235838_a_(b -> 15)));
 
-        registerBlockWithBasicItem("accelerator", new Accelerator(Block.Properties.create(Material.ROCK)
-            .harvestLevel(1)
-            .sound(SoundType.STONE)
-            .hardnessAndResistance(5)
-            .harvestTool(ToolType.PICKAXE)));
+        registerBlockWithBasicItem("accelerator", new Accelerator());
     }
-
 
 
     private static void registerBlock(String name, Block block) {
