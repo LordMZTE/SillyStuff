@@ -44,7 +44,7 @@ public class ItemModels extends ItemModelProvider {
     }
 
     private void buildBigTool(String name) {
-        IterationHelper.runForAll(this::buildSimpleItem,
+        IterationHelper.runForAll(s -> this.buildParentItem(s, "item/handheld"),
                 name + "_hammer",
                 name + "_excavator",
                 name + "_great_axe");
