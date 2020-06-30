@@ -1,0 +1,41 @@
+{
+    "itemGroup.sillystuff": "Silly Stuff",
+
+    "item.sillystuff.animal_grower": "Creature Grub",
+    "item.sillystuff.recall_pearl": "Tall One's Recaller",
+    "item.sillystuff.boiled_sweet_berries": "Grilled Land Capers",
+    "item.sillystuff.emerald_on_a_stick": "Stick o' Emerald",
+
+    "item.sillystuff.wooden_hammer": "Hammerr o' Timber",
+    "item.sillystuff.golden_hammer": "Hammerr o' Gold",
+    "item.sillystuff.stone_hammer": "Hammerr o' Rock",
+    "item.sillystuff.iron_hammer": "Hammerr o' Steel",
+    "item.sillystuff.diamond_hammer": "Hammerr o' Diamond",
+    "item.sillystuff.netherite_hammer": "Devil's Hammerr",
+
+    "item.sillystuff.wooden_excavator": "Big Spade o' Timber",
+    "item.sillystuff.golden_excavator": "Big Spade o' Gold",
+    "item.sillystuff.stone_excavator": "Big Spade o' Rock",
+    "item.sillystuff.iron_excavator": "Big Spade o' Steel",
+    "item.sillystuff.diamond_excavator": "Big Spade o' Diamond",
+    "item.sillystuff.netherite_excavator": "Blackbeard's Big Spade",
+
+    "item.sillystuff.wooden_great_axe": "Big Hatchet o' Timber",
+    "item.sillystuff.golden_great_axe": "Big Hatchet o' Gold",
+    "item.sillystuff.stone_great_axe": "Big Hatchet o' Rock",
+    "item.sillystuff.iron_great_axe": "Big Hatchet o' Steel",
+    "item.sillystuff.diamond_great_axe": "Big Hatchet o' Diamond",
+    "item.sillystuff.netherite_great_axe": "Blackbeard's Great Battleaxe",
+
+    "block.sillystuff.better_scaffold": "Superior Shipbuildin' Frame",
+    "block.sillystuff.illuminated_better_scaffold": "Illuminated Superior Shipbuildin' Frame",
+    "block.sillystuff.accelerator": "Acceleratorr",
+
+    "jei.sillystuff.description.recall_pearl": "Shift-Click to save your current position, Right-Click to go back there",
+    "jei.sillystuff.description.animal_grower": "Makes Animals Grow Instantly\nAlso Works On Creepers to some extent",
+    "jei.sillystuff.description.better_scaffold": "This Scaffold Is ideal for building!\nYou can place it in a line, downwards or upwards by crouching while placing it!\nThe whole structure breaks if you crouch while breaking it",
+    "jei.sillystuff.description.accelerator": "This will accelerate tile entities in front of it\nbut in order to work it must be within the range of a beacon with the speed effect\nbonus speed if the beacon is speed 2!\nYes you can use Multiple Beacons",
+    "jei.sillystuff.description.emerald_on_a_stick": "Villagers Find this stick very attractive",
+
+    "chat.sillystuff.recall_pearl.nolocation": "You Must set a position First!"
+}
