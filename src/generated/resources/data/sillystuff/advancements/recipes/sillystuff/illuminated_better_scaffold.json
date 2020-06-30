@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "sillystuff:illuminated_better_scaffold"
+    ]
+  },
+  "criteria": {
+    "glowstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:dusts/glowstone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "sillystuff:illuminated_better_scaffold"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "glowstone",
+      "has_the_recipe"
+    ]
+  ]
+}

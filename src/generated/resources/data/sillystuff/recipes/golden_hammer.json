@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BIB",
+    " S ",
+    " S "
+  ],
+  "key": {
+    "B": {
+      "tag": "forge:storage_blocks/gold"
+    },
+    "I": {
+      "tag": "forge:ingots/gold"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "sillystuff:golden_hammer"
+  }
+}

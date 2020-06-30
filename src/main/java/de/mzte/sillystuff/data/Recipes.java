@@ -1,5 +1,6 @@
 package de.mzte.sillystuff.data;
 
+import de.mzte.sillystuff.util.IterationHelper;
 import de.mzte.sillystuff.util.RegistryHelper;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.data.*;
@@ -34,6 +35,17 @@ public class Recipes extends RecipeProvider {
         bigToolRecipes(consumer, Tags.Items.STONE, Tags.Items.COBBLESTONE, "stone", Tags.Items.COBBLESTONE);
         bigToolRecipes(consumer, Tags.Items.STORAGE_BLOCKS_IRON, Tags.Items.INGOTS_IRON, "iron", Tags.Items.INGOTS_IRON);
         bigToolRecipes(consumer, Tags.Items.STORAGE_BLOCKS_DIAMOND, Tags.Items.GEMS_DIAMOND, "diamond", Tags.Items.GEMS_DIAMOND);
+
+        //Netherite tools
+        IterationHelper.runForAll(item -> SmithingRecipeBuilder.func_240502_a_(
+                Ingredient.fromItems(RegistryHelper.grabModItem("diamond_" + item)),
+                Ingredient.fromItems(Items.field_234759_km_),
+                RegistryHelper.grabModItem("netherite_" + item)
+                ).func_240503_a_("has_netherite_ingot", hasItem(Items.field_234759_km_))
+                        .func_240505_a_(consumer, new ResourceLocation(MODID, "netherite_" + item)),
+                "hammer",
+                "excavator",
+                "great_axe");
         //endregion
 
         //region Food Items
@@ -43,7 +55,7 @@ public class Recipes extends RecipeProvider {
         //endregion
 
         //region Other Items
-        ShapedRecipeBuilder.shapedRecipe(RegistryHelper.grabModItem( "better_scaffold"), 8)
+        ShapedRecipeBuilder.shapedRecipe(RegistryHelper.grabModItem("better_scaffold"), 8)
                 .key('#', Tags.Items.RODS_WOODEN)
                 .patternLine("# #")
                 .patternLine(" # ")
@@ -52,7 +64,7 @@ public class Recipes extends RecipeProvider {
                 .setGroup(MODID + ":better_scaffold")
                 .build(consumer);
 
-        ShapedRecipeBuilder.shapedRecipe(RegistryHelper.grabModItem( "illuminated_better_scaffold"), 8)
+        ShapedRecipeBuilder.shapedRecipe(RegistryHelper.grabModItem("illuminated_better_scaffold"), 8)
                 .key('#', Tags.Items.RODS_WOODEN)
                 .key('G', Tags.Items.DUSTS_GLOWSTONE)
                 .patternLine("# #")
@@ -72,7 +84,7 @@ public class Recipes extends RecipeProvider {
                 .addCriterion("seeds", hasItem(Items.WHEAT_SEEDS))
                 .build(consumer, new ResourceLocation(MODID, "animal_grower_potato"));
 
-        ShapelessRecipeBuilder.shapelessRecipe(RegistryHelper.grabModItem( "recall_pearl"))
+        ShapelessRecipeBuilder.shapelessRecipe(RegistryHelper.grabModItem("recall_pearl"))
                 .addIngredient(Tags.Items.ENDER_PEARLS)
                 .addIngredient(Items.CHORUS_FRUIT)
                 .addCriterion("pearl", hasItem(Tags.Items.ENDER_PEARLS))
@@ -121,7 +133,11 @@ public class Recipes extends RecipeProvider {
                 .build(consumer, new ResourceLocation(MODID, "boiled_sweet_berries_" + methodName));
     }
 
-    private void bigToolRecipes(Consumer<IFinishedRecipe> consumer, Ingredient block, Ingredient item, String itemName, ItemPredicate unlockItem) {
+    private void bigToolRecipes(Consumer<IFinishedRecipe> consumer,
+                                Ingredient block,
+                                Ingredient item,
+                                String itemName,
+                                ItemPredicate unlockItem) {
         //HAMMER
         ShapedRecipeBuilder.shapedRecipe(RegistryHelper.grabModItem(itemName + "_hammer"))
                 .key('B', block)
