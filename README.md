@@ -2,7 +2,7 @@
 **This is a Mod Of all sorts of random things i can come up with, i try to keep it good quality tho!**
 
 **Suggestions Welcome!**
-![img](https://i.imgur.com/AhkGmdt.jpg "SillyStuff")
+![img](https://i.imgur.com/j4kKNt3.jpg "SillyStuff")
 
 **Catchme_96 made a showcase of the mod**
 
