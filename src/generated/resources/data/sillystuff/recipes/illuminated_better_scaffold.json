@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sillystuff:better_scaffold",
+  "pattern": [
+    "# #",
+    " G ",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:rods/wooden"
+    },
+    "G": {
+      "tag": "forge:dusts/glowstone"
+    }
+  },
+  "result": {
+    "item": "sillystuff:illuminated_better_scaffold",
+    "count": 8
+  }
+}

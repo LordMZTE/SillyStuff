@@ -15,8 +15,7 @@ public class Datagen {
             gen.addProvider(new BlockStates(gen, e.getExistingFileHelper()));
         }
         if(e.includeServer()) {
-            //Not working due to bug in forge
-            //gen.addProvider(new Recipes(gen));
+            gen.addProvider(new Recipes(gen));
             gen.addProvider(new LootTables(gen));
         }
     }
