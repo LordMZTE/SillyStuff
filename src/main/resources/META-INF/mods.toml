@@ -32,7 +32,7 @@ description='''
 A mod adding all sorts of silly things
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.mytutorial]] #optional
+[[dependencies.sillystuff]] #optional
     # the modid of the dependency
     modId="forge" #mandatory
     # Does this dependency have to exist - if not, ordering below must be specified
@@ -44,7 +44,7 @@ A mod adding all sorts of silly things
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
 # Here's another dependency
-[[dependencies.mytutorial]]
+[[dependencies.sillystuff]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.15.2,)"
