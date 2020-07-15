@@ -55,7 +55,7 @@ public class BetterScaffoldItem extends BlockItem {
                     break;
                 }
                 if( blockpos$mutable.getY() > world.getHeight() && player instanceof ServerPlayerEntity) {
-                    SChatPacket schatpacket = new SChatPacket((new TranslationTextComponent("build.tooHigh", world.getHeight())).func_240701_a_(TextFormatting.RED), ChatType.GAME_INFO, Util.field_240973_b_);
+                    SChatPacket schatpacket = new SChatPacket((new TranslationTextComponent("build.tooHigh", world.getHeight())).func_240701_a_(TextFormatting.RED), ChatType.GAME_INFO, Util.DUMMY_UUID);
                     ((ServerPlayerEntity)player).connection.sendPacket(schatpacket);
                     break;
                 }

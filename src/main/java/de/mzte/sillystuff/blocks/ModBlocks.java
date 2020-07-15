@@ -25,7 +25,7 @@ public class ModBlocks {
                 .harvestLevel(0)
                 .zeroHardnessAndResistance()
                 //No Mob Spawns
-                .func_235827_a_((a, b, c, d) -> false)));
+                .setPropagatesDownwards((a, b, c, d) -> false)));
 
         registerBlock("illuminated_better_scaffold", new BetterScaffold(Block.Properties.create(Material.BAMBOO)
                 .notSolid()
@@ -33,9 +33,9 @@ public class ModBlocks {
                 .harvestLevel(0)
                 .zeroHardnessAndResistance()
                 //No Mob Spawns
-                .func_235827_a_((a, b, c, d) -> false)
+                .setPropagatesDownwards((a, b, c, d) -> false)
                 //Light value
-                .func_235838_a_(b -> 15)));
+                .setLightLevel(b -> 15)));
 
         registerBlockWithBasicItem("accelerator", new Accelerator());
     }

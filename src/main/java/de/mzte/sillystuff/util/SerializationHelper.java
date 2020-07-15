@@ -25,7 +25,7 @@ public class SerializationHelper {
     public static ServerWorld deserializeDimension(String s, MinecraftServer serv) {
         return serv.getWorld(
                 RegistryKey.func_240903_a_(
-                        Registry.field_239699_ae_,
+                        Registry.WORLD_KEY,
                         deserializeResourceLocation(s)
                 )
         );

@@ -39,9 +39,9 @@ public class Recipes extends RecipeProvider {
         //Netherite tools
         IterationHelper.runForAll(item -> SmithingRecipeBuilder.func_240502_a_(
                 Ingredient.fromItems(RegistryHelper.grabModItem("diamond_" + item)),
-                Ingredient.fromItems(Items.field_234759_km_),
+                Ingredient.fromItems(Items.NETHERITE_INGOT),
                 RegistryHelper.grabModItem("netherite_" + item)
-                ).func_240503_a_("has_netherite_ingot", hasItem(Items.field_234759_km_))
+                ).func_240503_a_("has_netherite_ingot", hasItem(Items.NETHERITE_INGOT))
                         .func_240505_a_(consumer, new ResourceLocation(MODID, "netherite_" + item)),
                 "hammer",
                 "excavator",

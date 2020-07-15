@@ -46,7 +46,7 @@ public class RecallPearl extends Item {
                 }
             }else {
                 if(worldIn.isRemote)
-                    playerIn.sendMessage((new TranslationTextComponent("chat.sillystuff.recall_pearl.nolocation").func_240701_a_(TextFormatting.RED)), Util.field_240973_b_);
+                    playerIn.sendMessage((new TranslationTextComponent("chat.sillystuff.recall_pearl.nolocation").func_240701_a_(TextFormatting.RED)), Util.DUMMY_UUID);
 
                 return ActionResult.resultFail(stack);
             }
