@@ -28,12 +28,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
 public class BigTool extends ToolItem {
     public final int radius, depth;
     public final List<Material> additionalMaterials;
     public static final HashMap<ToolType, List<Material>> materialsForToolTypes = new HashMap<>();
+    private final AtomicBoolean brokeBlocks = new AtomicBoolean(false);
 
     static {
         //This Jank was mojang's idea, not mine!
@@ -89,6 +91,7 @@ public class BigTool extends ToolItem {
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+        brokeBlocks.set(false);
         if(entityLiving instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entityLiving;
             RayTraceResult ray = Item.rayTrace(worldIn, player, RayTraceContext.FluidMode.ANY);
@@ -104,6 +107,7 @@ public class BigTool extends ToolItem {
                                     worldIn.getBlockState(b).getBlockHardness(worldIn, b) > 0 &&
                                     worldIn.getTileEntity(b) == null)
                             .forEach(b -> {
+                                brokeBlocks.set(true);
                                 BlockState tempState = worldIn.getBlockState(b);
                                 Block block = tempState.getBlock();
 
@@ -123,8 +127,9 @@ public class BigTool extends ToolItem {
                                 //Remove Block
                                 worldIn.destroyBlock(b, false);
                             });
-                    //Restore damage that's been done to the item by the game
-                    stack.damageItem(-1, entityLiving, this::breakAnimation);
+                    if(brokeBlocks.get())
+                        //Restore damage that's been done to the item by the game
+                        stack.damageItem(-1, entityLiving, this::breakAnimation);
                 }
             }
         }
