@@ -17,6 +17,7 @@ public class Datagen {
         if(e.includeServer()) {
             gen.addProvider(new Recipes(gen));
             gen.addProvider(new LootTables(gen));
+            gen.addProvider(new TagsItem(gen));
         }
     }
 }
