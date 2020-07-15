@@ -31,8 +31,8 @@ public class AcceleratorTile extends TileEntity implements ITickableTileEntity {
         if(!world.isRemote) {
             BlockPos toTickPos = pos.offset(world.getBlockState(pos).get(BlockStateProperties.FACING));
             BlockState toTick = world.getBlockState(toTickPos);
-            TileEntity toTicKTile = world.getTileEntity(toTickPos);
-            if(!world.isBlockPowered(this.pos) && toTick != null) {
+            TileEntity toTickTile = world.getTileEntity(toTickPos);
+            if(!world.isBlockPowered(this.pos)) {
                 speedLevel = Math.min(this.world.loadedTileEntityList.stream()
                         .filter(t -> t instanceof BeaconTileEntity)
                         .map(t -> (BeaconTileEntity)t)
@@ -41,11 +41,11 @@ public class AcceleratorTile extends TileEntity implements ITickableTileEntity {
                         .sum(), Config.ACCELERATOR_MAX_SPEED.get());
 
                 acceleration = speedLevel * Config.ACCELERATOR_ACCELERATION.get();
-                if(speedLevel > 0 && !(toTicKTile instanceof AcceleratorTile)) {
-                    if(toTicKTile instanceof ITickableTileEntity) {
+                if(speedLevel > 0 && !(toTickTile instanceof AcceleratorTile)) {
+                    if(toTickTile instanceof ITickableTileEntity) {
                         setActiveState(true);
                         for(int i = 0; i < acceleration; i++)
-                            ((ITickableTileEntity)toTicKTile).tick();
+                            ((ITickableTileEntity)toTickTile).tick();
                     }else if(toTick.getBlock() instanceof IGrowable) {
                         IGrowable iGrowable = (IGrowable)toTick.getBlock();
                         setActiveState(true);
