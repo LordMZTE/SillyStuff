@@ -42,11 +42,18 @@ public class BigTool extends ToolItem {
         materialsForToolTypes.put(ToolType.SHOVEL, Arrays.asList(Material.SNOW, Material.SNOW_BLOCK));
     }
 
-    public BigTool(float attackDamageIn, float attackSpeedIn, IItemTier tier, Properties builder, int radius, int depth, Material... additionalMaterials) {
+    public BigTool(float attackDamageIn,
+                   float attackSpeedIn,
+                   IItemTier tier,
+                   Properties builder,
+                   int radius,
+                   int depth,
+                   int durabilityMultiplier,
+                   Material... additionalMaterials) {
         super(attackDamageIn, attackSpeedIn, new IItemTier() {
             @Override
             public int getMaxUses() {
-                return tier.getMaxUses() * 4;
+                return tier.getMaxUses() * durabilityMultiplier;
             }
 
             @Override
@@ -83,10 +90,10 @@ public class BigTool extends ToolItem {
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
         if(entityLiving instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity)entityLiving;
+            PlayerEntity player = (PlayerEntity) entityLiving;
             RayTraceResult ray = Item.rayTrace(worldIn, player, RayTraceContext.FluidMode.ANY);
             if(this.canHarvestBlock(state) && ray.getType() == RayTraceResult.Type.BLOCK) {
-                BlockRayTraceResult blockRay = (BlockRayTraceResult)ray;
+                BlockRayTraceResult blockRay = (BlockRayTraceResult) ray;
                 Direction facing = blockRay.getFace();
                 if(!player.isCrouching()) {
                     getArea(pos, facing)

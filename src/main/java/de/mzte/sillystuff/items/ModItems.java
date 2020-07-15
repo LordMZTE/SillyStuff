@@ -74,7 +74,9 @@ public class ModItems {
                 props.get()
                         .addToolType(ToolType.PICKAXE, miningLevel),
                 1,
-                0));
+                0,
+                4));
+
         //EXCAVATOR
         ITEMS.register(name + "_excavator", () -> new BigTool(damage,
                 attackSpeed,
@@ -82,7 +84,9 @@ public class ModItems {
                 props.get()
                         .addToolType(ToolType.SHOVEL, miningLevel),
                 1,
-                0));
+                0,
+                4));
+
         //GREAT AXE
         ITEMS.register(name + "_great_axe", () -> new BigTool(damage,
                 attackSpeed,
@@ -91,6 +95,7 @@ public class ModItems {
                         .addToolType(ToolType.AXE, miningLevel),
                 1,
                 2,
+                12,
                 Material.LEAVES,
                 Material.BAMBOO,
                 Material.BAMBOO_SAPLING));
