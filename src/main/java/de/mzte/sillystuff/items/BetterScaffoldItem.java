@@ -26,6 +26,10 @@ public class BetterScaffoldItem extends BlockItem {
     @Override
     @Nullable
     public BlockItemUseContext getBlockItemUseContext(BlockItemUseContext context) {
+        //Block Placers wont crash now
+        if(context.getPlayer() == null)
+            return context;
+
         BlockPos blockpos = context.getPos();
         PlayerEntity player = context.getPlayer();
         World world = context.getWorld();
