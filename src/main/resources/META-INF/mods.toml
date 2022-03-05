@@ -48,6 +48,6 @@ A mod adding all sorts of silly things
 [[dependencies.sillystuff]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.1,)"
+    versionRange="[1.16.5,)"
     ordering="NONE"
     side="BOTH"

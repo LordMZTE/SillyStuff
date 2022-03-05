@@ -62,7 +62,7 @@ public class ModItems {
                     .group(ITEM_GROUP);
 
             if(invulnerableToFire)
-                properties.func_234689_a_();
+                properties.isImmuneToFire();
 
             return properties;
         };

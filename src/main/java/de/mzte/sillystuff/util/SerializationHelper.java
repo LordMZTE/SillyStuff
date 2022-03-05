@@ -19,12 +19,12 @@ public class SerializationHelper {
     }
 
     public static String serializeDimension(ServerWorld w) {
-        return w.func_234923_W_().func_240901_a_().toString();
+        return w.getDimensionKey().getLocation().toString();
     }
 
     public static ServerWorld deserializeDimension(String s, MinecraftServer serv) {
         return serv.getWorld(
-                RegistryKey.func_240903_a_(
+                RegistryKey.getOrCreateKey(
                         Registry.WORLD_KEY,
                         deserializeResourceLocation(s)
                 )

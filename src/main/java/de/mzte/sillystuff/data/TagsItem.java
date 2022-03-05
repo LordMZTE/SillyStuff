@@ -19,9 +19,9 @@ public class TagsItem extends TagsProvider<Item> {
 
     @Override
     protected void registerTags() {
-        TagsProvider.Builder<Item> builder = this.func_240522_a_(ItemTags.field_232903_N_);
+        TagsProvider.Builder<Item> builder = this.getOrCreateBuilder(ItemTags.PIGLIN_LOVED);
 
-        IterationHelper.runForAll(str -> builder.func_240532_a_(RegistryHelper.grabModItem(str)),
+        IterationHelper.runForAll(str -> builder.add(RegistryHelper.grabModItem(str)),
                 "golden_hammer",
                 "golden_excavator",
                 "golden_great_axe"

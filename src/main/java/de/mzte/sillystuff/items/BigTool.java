@@ -39,7 +39,7 @@ public class BigTool extends ToolItem {
 
     static {
         //This Jank was mojang's idea, not mine!
-        materialsForToolTypes.put(ToolType.AXE, Arrays.asList(Material.WOOD, Material.field_237214_y_, Material.PLANTS, Material.TALL_PLANTS, Material.BAMBOO, Material.GOURD));
+        materialsForToolTypes.put(ToolType.AXE, Arrays.asList(Material.WOOD, Material.NETHER_WOOD, Material.PLANTS, Material.TALL_PLANTS, Material.BAMBOO, Material.GOURD));
         materialsForToolTypes.put(ToolType.PICKAXE, Arrays.asList(Material.IRON, Material.ANVIL, Material.ROCK));
         materialsForToolTypes.put(ToolType.SHOVEL, Arrays.asList(Material.SNOW, Material.SNOW_BLOCK));
     }
@@ -118,7 +118,7 @@ public class BigTool extends ToolItem {
                                 //Generate Drops
                                 block.harvestBlock(worldIn, player, b, tempState, null, stack);
                                 //Generate XP
-                                block.dropXpOnBlockBreak(worldIn, b, tempState.getBlock().getExpDrop(
+                                block.dropXpOnBlockBreak((ServerWorld) worldIn, b, tempState.getBlock().getExpDrop(
                                         tempState,
                                         worldIn,
                                         b,

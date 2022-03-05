@@ -37,12 +37,12 @@ public class Recipes extends RecipeProvider {
         bigToolRecipes(consumer, Tags.Items.STORAGE_BLOCKS_DIAMOND, Tags.Items.GEMS_DIAMOND, "diamond", Tags.Items.GEMS_DIAMOND);
 
         //Netherite tools
-        IterationHelper.runForAll(item -> SmithingRecipeBuilder.func_240502_a_(
+        IterationHelper.runForAll(item -> SmithingRecipeBuilder.smithingRecipe(
                 Ingredient.fromItems(RegistryHelper.grabModItem("diamond_" + item)),
                 Ingredient.fromItems(Items.NETHERITE_INGOT),
                 RegistryHelper.grabModItem("netherite_" + item)
-                ).func_240503_a_("has_netherite_ingot", hasItem(Items.NETHERITE_INGOT))
-                        .func_240505_a_(consumer, new ResourceLocation(MODID, "netherite_" + item)),
+                ).addCriterion("has_netherite_ingot", hasItem(Items.NETHERITE_INGOT))
+                        .build(consumer, new ResourceLocation(MODID, "netherite_" + item)),
                 "hammer",
                 "excavator",
                 "great_axe");

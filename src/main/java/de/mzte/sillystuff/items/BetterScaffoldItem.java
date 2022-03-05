@@ -43,8 +43,8 @@ public class BetterScaffoldItem extends BlockItem {
             direction = Direction.UP;
 
         int i = 0;
-        BlockPos.Mutable blockClicked = blockpos.func_239590_i_().move(context.getFace().getOpposite());
-        BlockPos.Mutable blockpos$mutable = blockpos.func_239590_i_().move(context.getFace().getOpposite()).move(direction);
+        BlockPos.Mutable blockClicked = blockpos.toMutable().move(context.getFace().getOpposite());
+        BlockPos.Mutable blockpos$mutable = blockpos.toMutable().move(context.getFace().getOpposite()).move(direction);
         if(CompareHelper.objectExtends(world.getBlockState(blockClicked).getBlock(), block) && context.getPlayer().isCrouching()) {
             while(i < 100) {
                 blockstate = world.getBlockState(blockpos$mutable);
@@ -55,7 +55,7 @@ public class BetterScaffoldItem extends BlockItem {
                     break;
                 }
                 if( blockpos$mutable.getY() > world.getHeight() && player instanceof ServerPlayerEntity) {
-                    SChatPacket schatpacket = new SChatPacket((new TranslationTextComponent("build.tooHigh", world.getHeight())).func_240701_a_(TextFormatting.RED), ChatType.GAME_INFO, Util.DUMMY_UUID);
+                    SChatPacket schatpacket = new SChatPacket((new TranslationTextComponent("build.tooHigh", world.getHeight())).mergeStyle(TextFormatting.RED), ChatType.GAME_INFO, Util.DUMMY_UUID);
                     ((ServerPlayerEntity)player).connection.sendPacket(schatpacket);
                     break;
                 }

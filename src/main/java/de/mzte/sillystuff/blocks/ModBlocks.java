@@ -25,7 +25,7 @@ public class ModBlocks {
                 .harvestLevel(0)
                 .zeroHardnessAndResistance()
                 //No Mob Spawns
-                .setPropagatesDownwards((a, b, c, d) -> false)));
+                .setAllowsSpawn((a, b, c, d) -> false)));
 
         registerBlock("illuminated_better_scaffold", new BetterScaffold(Block.Properties.create(Material.BAMBOO)
                 .notSolid()
@@ -33,7 +33,7 @@ public class ModBlocks {
                 .harvestLevel(0)
                 .zeroHardnessAndResistance()
                 //No Mob Spawns
-                .setPropagatesDownwards((a, b, c, d) -> false)
+                .setAllowsSpawn((a, b, c, d) -> false)
                 //Light value
                 .setLightLevel(b -> 15)));
 
